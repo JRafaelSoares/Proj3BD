@@ -15,7 +15,7 @@ create table Camara
 create table Video
 	(dataHoraInicio timestamp not null unique,
 	 dataHoraFim timestamp not null check(dataHoraFim > dataHoraInicio),
-	 numCamara numeric not null unique,
+	 numCamara numeric not null,
 	 constraint pk_dataHoraInicio primary key(dataHoraInicio),
 	 constraint fk_numCamara foreign key(numCamara) references Camara(numCamara));
 
@@ -37,8 +37,8 @@ create table Local
 
 -- moradaLocal e numCamara unique?
 create table Vigia
-	(moradaLocal varchar(80) not null unique,
-	 numCamara numeric not null unique,
+	(moradaLocal varchar(80) not null,
+	 numCamara numeric not null,
 	 constraint fk_moradaLocal foreign key(moradaLocal) references Local(moradaLocal),
 	 constraint fk_numCamara foreign key(numCamara) references Camara(numCamara));
 
@@ -49,8 +49,7 @@ create table EventoEmergencia
 	 nomePessoa varchar(80) not null,
 	 moradaLocal varchar(80) not null,
 	 numProcessoSocorro numeric,
-	 constraint pk_numTelefone_instanteChamada primary key( Unique(numTelefone,instanteChamada)),
-	 constraint pk_instanteChamada primary key(instanteChamada),
+	 constraint pk_numTelefone_instanteChamada primary key(numTelefone,instanteChamada),
 	 constraint fk_moradaLocal foreign key(moradaLocal) references Local(moradaLocal));
 
 -- DATA
@@ -73,5 +72,5 @@ insert into Vigia values('Murtal', 0);
 insert into Vigia values('Parede', 1);
 insert into Vigia values('Sintra', 2);
 
-insert into EventoEmergencia values(999999999, '00:00:00', 'Joao Manel', 'Murtal', 0);
-insert into EventoEmergencia values(912312312, '00:30:00', 'Joao Manel', 'Murtal', 0);
+insert into EventoEmergencia values(999999999, '2004-10-19 00:00:00', 'Joao Manel', 'Murtal', 0);
+insert into EventoEmergencia values(999999999, '2005-11-19 00:30:00', 'Joao Manel', 'Murtal', 0);
