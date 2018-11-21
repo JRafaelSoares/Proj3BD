@@ -86,8 +86,8 @@ INSERT INTO Transporta VALUES('Hospital', 1, 1, 5);
 INSERT INTO Alocado VALUES('Forca Aerea', 6, 1, 14);
 
 --- numTelefone --- instanteChamada --- nomePessoa --- moradaLocal --- numProcessoSocorro
-INSERT INTO EventoEmergencia VALUES(969235711,'2016-06-22 19:10:25-07', 'Luis Pinto', 'Oliveira do Hospital', 1);
-INSERT INTO EventoEmergencia VALUES(912267711,'2018-09-22 02:13:25-07', 'Rui Santo', 'Natalia Luisa', 2);
+INSERT INTO EventoEmergencia VALUES(969235711,'2016-06-22 19:10:25-07', 'Luis Pinto', 'Natalia Luisa', 1);
+INSERT INTO EventoEmergencia VALUES(912267711,'2018-09-22 02:13:25-07', 'Rui Santo', 'Oliveira do Hospital', 2);
 
 --- idCoordenador
 INSERT INTO Coordenador VALUES(1);
@@ -98,7 +98,7 @@ INSERT INTO Coordenador VALUES(5);
 
 --- nomeEntidade --- numMeio --- numProcessoSocorro --- idCoordenador --- datahoraInicio --- datahoraFim --- dataAuditoria --- texto
 INSERT INTO Audita VALUES('Forca Aerea', 6, 1, 1, '2016-06-23 10:00:00-07', '2016-06-30 19:05:15-07', '2019-06-30 20:00:00-07', 'Correu tudo bem.');
-INSERT INTO Audita VALUES('Hospital', 1, 1, 1, '2016-08-13 09:40:02-07', '2016-09-01 15:05:39-07', '2019-09-01 20:00:00-07', 'Correu tudo mal.');
+INSERT INTO Audita VALUES('Hospital', 1, 2, 1, '2018-08-13 09:40:02-07', '2018-09-01 15:05:39-07', '2019-09-01 20:00:00-07', 'Correu tudo mal.');
 
 --- idCoordenador --- dataHoraInicioVideo --- numCamara --- dataHoraInicio --- dataHoraFim
 INSERT INTO Solicita VALUES(1, '2016-06-22 19:00:25-07', 1, '2016-06-22 19:00:25-07', '2016-06-22 20:00:25-07');
