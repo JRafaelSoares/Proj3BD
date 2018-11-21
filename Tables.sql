@@ -1,4 +1,29 @@
 ----------------------------------------
+-- Drop cascade
+----------------------------------------
+
+drop table camara cascade;
+drop table Video cascade;
+drop table SegmentoVideo cascade;
+drop table Local cascade;
+drop table vigia cascade;
+drop table EventoEmergencia cascade;
+
+drop table ProcessoSocorro cascade;
+drop table EntidadeMeio cascade;
+drop table Meio cascade;
+drop table MeioCombate cascade;
+drop table MeioApoio cascade;
+drop table MeioSocorro cascade;
+
+drop table transporta cascade;
+drop table alocado cascade;
+drop table acciona cascade;
+drop table coordenador cascade;
+drop table audita cascade;
+drop table solicita cascade;
+
+----------------------------------------
 -- Table Creation
 ----------------------------------------
 
@@ -6,8 +31,6 @@
 -- Therefore the following use the following naming rules:
 --   1. pk_table for names of primary key constraints
 --   2. fk_table_another for names of foreign key constraints
-
--- Rafael
 
 create table Camara
     (numCamara numeric not null unique,
@@ -53,7 +76,38 @@ create table EventoEmergencia
      constraint pk_numTelefone_instanteChamada primary key(numTelefone,instanteChamada),
      constraint fk_moradaLocal foreign key(moradaLocal) references Local(moradaLocal));
 
--- Joana
+create table ProcessoSocorro
+   (numProcessoSocorro numeric  not null unique,
+    constraint pk_ProcessoSocorro primary key(numProcessoSocorro));
+
+create table EntidadeMeio
+   (nomeEntidade    varchar(80) not null unique,
+    constraint pk_EntidadeMeio primary key(nomeEntidade));
+
+create table Meio
+   (numMeio numeric not null unique,
+    nomeMeio    varchar(80) not null,
+    nomeEntidade varchar(80)    not null,
+    constraint pk_Meio primary key(numMeio, nomeEntidade),
+    constraint fk_Meio_EntidadeMeio foreign key(nomeEntidade) references EntidadeMeio(nomeEntidade));
+
+create table MeioCombate
+   (numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
+    constraint pk_MeioCombate primary key(numMeio, nomeEntidade),
+    constraint fk_MeioCombate_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
+
+create table MeioApoio
+   (numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
+    constraint pk_MeioApoio primary key(numMeio, nomeEntidade),
+    constraint fk_MeioApoio_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
+
+create table MeioSocorro
+   (numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
+    constraint pk_MeioSocorro primary key(numMeio, nomeEntidade),
+    constraint fk_MeioSocorro_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
 
 create table transporta
    (nomeEntidade varchar(80) not null,
@@ -107,18 +161,3 @@ create table solicita
     constraint pk_solicita primary key(idCoordenador, dataHoraInicioVideo, numCamara));
     constraint fk_Coordenador foreign key (idCoordenador) references coordenador;
     constraint fk_Video foreign key (dataHoraInicioVideo, numCamara) references video;
-
-
-drop table camara cascade;
-drop table Video cascade;
-drop table SegmentoVideo cascade;
-drop table Local cascade;
-drop table vigia cascade;
-drop table EventoEmergencia cascade;
-
-drop table transporta cascade;
-drop table alocado cascade;
-drop table acciona cascade;
-drop table coordenador cascade;
-drop table audita cascade;
-drop table solicita cascade;
