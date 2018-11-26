@@ -4,18 +4,22 @@ INSERT INTO Camara VALUES(2);
 INSERT INTO Camara VALUES(3);
 INSERT INTO Camara VALUES(4);
 INSERT INTO Camara VALUES(5);
+INSERT INTO Camara VALUES(6);
 
 --- dataHoraInicio --- dataHoraFim --- numCamara
 INSERT INTO Video VALUES('2016-06-22 19:00:25-07', '2018-12-22 20:00:25-07', 1);
+INSERT INTO Video VALUES('2018-08-22 19:00:25-07', '2018-08-22 19:01:35-07', 6);
 
 --- numSegmento --- duracao --- dataHoraInicio --- numCamara
-INSERT INTO SegmentoVideo VALUES(1, '00:20:00', '2016-06-22 19:00:25-07', 1);
-INSERT INTO SegmentoVideo VALUES(2, '00:20:00', '2016-06-22 19:00:25-07', 1);
-INSERT INTO SegmentoVideo VALUES(3, '00:20:00', '2016-06-22 19:00:25-07', 1);
+INSERT INTO SegmentoVideo VALUES(1, '00:00:20', '2016-06-22 19:00:25-07', 1);
+INSERT INTO SegmentoVideo VALUES(2, '00:00:20', '2016-06-22 19:00:25-07', 1);
+INSERT INTO SegmentoVideo VALUES(3, '00:00:20', '2016-06-22 19:00:25-07', 1);
+INSERT INTO SegmentoVideo VALUES(4, '00:01:10', '2018-08-22 19:00:25-07', 6);
 
 --- moradaLocal
 INSERT INTO Local VALUES('Oliveira do Hospital');
 INSERT INTO Local VALUES('Natalia Luisa');
+INSERT INTO Local VALUES('Monchique');
 
 --- moradaLocal --- numCamara
 INSERT INTO Vigia VALUES('Oliveira do Hospital', 1);
@@ -23,6 +27,7 @@ INSERT INTO Vigia VALUES('Oliveira do Hospital', 2);
 INSERT INTO Vigia VALUES('Oliveira do Hospital', 3);
 INSERT INTO Vigia VALUES('Natalia Luisa', 4);
 INSERT INTO Vigia VALUES('Natalia Luisa', 5);
+INSERT INTO Vigia VALUES('Monchique', 6);
 
 --- numProcessoSocorro
 INSERT INTO ProcessoSocorro VALUES(1);
@@ -78,6 +83,7 @@ INSERT INTO Acciona VALUES(2, 'Hospital', 1);
 INSERT INTO Acciona VALUES(6, 'Forca Aerea', 2);
 INSERT INTO Acciona VALUES(1, 'Hospital', 2);
 INSERT INTO Acciona VALUES(3, 'Hospital', 2);
+INSERT INTO Acciona VALUES(4, 'Exercito', 2);
 
 --- nomeEntidade --- numMeio --- numProcessoSocorro --- numVitimas
 INSERT INTO Transporta VALUES('Hospital', 1, 1, 5);
