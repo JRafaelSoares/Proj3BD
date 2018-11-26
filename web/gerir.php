@@ -1,54 +1,52 @@
 <html>
     <body>
 <?php
-    //$type = $_REQUEST['type']
     
     $type = $_REQUEST['type'];
     try
     {
         $host = "db.ist.utl.pt";
-        $user ="ist187696";
-        $password = "bvsl7219";
+        $user ="ist187666";
+        $password = "joana0101";
         $dbname = $user;
-        
         
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-        $sql = "SELECT * FROM Local;"; // :type
+        
+        $sql = "SELECT * FROM " . $type . ";"; // 
+
         $result = $db->prepare($sql);
-        $result->execute(); //[':type' => $type]
+        $result->execute();
 
         echo("<table border=\"1\">\n");
+        
+        $result = $result->fetchAll();
 
+        $column_names = array_keys($result[0]);
+        $array_size = count($column_names);
+        //Nomes das colunas
         echo("<tr>");
         $i = 0;
-        while($i < pg_num_fields($result))
-        {
-            $field_name = pg_field_name($result, $i);
-            echo('<td>' . $field_name . '</td>');
-            $i = $i + 1;
+        while($i < $array_size){
+            echo("<td>");
+            echo($column_names[$i]);
+            echo("</td>");
+            $i = $i + 2;
         }
         echo("</tr>");
-        $i = 0;
-
-        while ($row = pg_fetch_row($result)){
-            echo('<tr>');
-            $count = count($row);
-            $y = 0;
-
-            while($y < $count){
-                $c_row = current($row);
-                echo('<td>' . $c_row . '</td>');
-                next($row);
-                $y = $y + 1; 
+        //Objetos
+        foreach ($result as $row) {
+            echo("<tr>");
+            $i = 0;
+            while($i < $array_size/2){
+                echo("<td>");
+                echo($row[$i]);
+                echo("</td>");
+                $i = $i + 1;
             }
-            echo('</tr>');
-            $i = $i + 1;
+            echo("</tr>");
         }
         echo("</table>\n");
-
-    
         $db = null;
     }
     catch (PDOException $e)
