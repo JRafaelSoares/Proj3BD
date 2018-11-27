@@ -2,9 +2,8 @@
     <body>
 <?php
     $type = $_REQUEST['type'];
-    $pk = $_REQUEST['pk'];
-
-    include functions.php;
+    $pk = eval("return " . $_REQUEST['pk'] . ";");
+    include "functions.php";
 
     try
     {
@@ -18,27 +17,25 @@
         $sql = "SELECT * FROM " . $type . " WHERE ";
 	
         $i = 0;
-	
         foreach ($primaryKeys[$type] as $key) {
-	    echo($key);
             if($i != 0) {
                 $sql = $sql . " AND ";
             }
 	    
-	    if($key == 'moradalocal' || $key == 'nomeentidade'){
-		    $sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
-	    }
-	
-	    else 
-            if($key == 'instantechamada'){
-		    $sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
-	    }
+    	    if($key == 'moradalocal' || $key == 'nomeentidade'){
+    		    $sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
+    	    }
+    	
+    	    else 
+                if($key == 'instantechamada'){
+    		    $sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
+    	    }
 
-	    else{
-            $sql = $sql . $key . " = " . $pk[$i];
-	    }
-		
-	    $i = $i + 1;
+    	    else{
+                $sql = $sql . $key . " = " . $pk[$i];
+    	    }
+    		
+    	    $i = $i + 1;
         }
 	
         $sql = $sql . ";";
@@ -48,39 +45,9 @@
         $result = $db->prepare($sql);
         $result->execute();
         
-        $db = null;
-
-        //PRINTING SQL
-
-        echo("<table border=\"1\">\n");
-        
         $result = $result->fetchAll();
-
-        $column_names = array_keys($result[0]);
-        $array_size = count($column_names);
-        //Nomes das colunas
-        echo("<tr>");
-        $i = 0;
-        while($i < $array_size){
-            echo("<td>");
-            echo($column_names[$i]);
-            echo("</td>");
-            $i = $i + 2;
-        }
-        echo("</tr>");
-        //Objetos
-        foreach ($result as $row) {
-            echo("<tr>");
-            $i = 0;
-            while($i < $array_size/2){
-                echo("<td>");
-                echo($row[$i]);
-                echo("</td>");
-                $i = $i + 1;
-            }
-            echo("</tr>");
-        }
-        echo("</table>\n");
+        
+        printTable(['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro'], $result);
         
         $db = null;
     }
