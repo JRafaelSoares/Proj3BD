@@ -2,6 +2,7 @@
     <body>
 <?php
     $type = $_REQUEST['type'];
+    //PK is a list of primary keys
     $pk = $_REQUEST['pk'];
 
     $columskeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio'], 'EntidadeMeio' => ['nomeentidade']];
