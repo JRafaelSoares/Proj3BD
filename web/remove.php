@@ -4,7 +4,7 @@
     $type = $_REQUEST['type'];
     $pk = $_REQUEST['pk'];
 
-    $columskeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio'], 'EntidadeMeio' => ['nomeentidade']];
+    include functions.php;
 
     try
     {
@@ -19,22 +19,23 @@
 	
         $i = 0;
 	
-        foreach ($columskeys[$type] as $key) {
+        foreach ($primaryKeys[$type] as $key) {
 	    echo($key);
             if($i != 0) {
                 $sql = $sql . " AND ";
             }
 	    
 	    if($key == 'moradalocal' || $key == 'nomeentidade'){
-		$sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
+		    $sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
 	    }
 	
-	    else if($key == 'instantechamada'){
-		$sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
+	    else 
+            if($key == 'instantechamada'){
+		    $sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
 	    }
 
 	    else{
-            	$sql = $sql . $key . " = " . $pk[$i];
+            $sql = $sql . $key . " = " . $pk[$i];
 	    }
 		
 	    $i = $i + 1;
