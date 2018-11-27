@@ -14,30 +14,49 @@
         $dbname = $user;
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        /*
         foreach($tables[$type] as $column){
-            if(isset($_REQUEST[$column]))
-                echo("found one: " . $_REQUEST[$column]);
+            echo(var_dump($_POST[$column]));
+            
+        }*/
+        if(isset($_POST['submit'])){
+            $sql = "INSERT INTO " . $type . " VALUES(";
+
+            for($i = 0; $i < count($tables[$type]); $i++){
+                if($tables[$type][$i] == 'Numero de Telefone' || $tables[$type][$i] == 'Numero do Processo de Socorro' || $tables[$type][$i] == 'Numero do Meio'){
+                    if($i == count($tables[$type]) - 1){
+                        $sql .= $_POST[str_replace(' ', '', $tables[$type][$i])] .");";
+                        break;
+                    }
+                    $sql .= $_POST[str_replace(' ', '', $tables[$type][$i])] . ", ";
+                }
+            
+                else{
+                    if($i == count($tables[$type]) - 1){
+                        $sql .= "'" . $_POST[str_replace(' ', '', $tables[$type][$i])] .");" . "'";
+                        break;
+                    }
+                    $sql .= "'" . $_POST[str_replace(' ', '', $tables[$type][$i])] . "', ";
+                }
+            }
+            echo($sql);
+            $result = $db->prepare($sql);
+            $result->execute();
         }
 
         $content = [];
         $elements = [];
-        echo("<form action=''>");
+        echo("<form method ='post' action=''>");
         foreach($tables[$type] as $column){
             array_push($elements,'
-                            <p><input type="text" name="' . $column . '"/></p>
-                        </form>');
+                            <p><input type="text" name="' . str_replace(' ', '', $column) . '"/></p>
+                        ');
         }
         array_push($content, $elements);
         printTable($tables[$type], $content);
         echo('
-                <p><input type="submit" value="Insert"/></p>
+                <p><input type="submit" name ="submit" value="Insert"/></p>
             </form>');
-
-        /*$sql = "INSERT INTO " . $type . " VALUES(";
-
-        $result = $db->prepare($sql);
-        $result->execute();*/
         
         $db = null;
     }
