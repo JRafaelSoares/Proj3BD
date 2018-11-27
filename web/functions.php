@@ -2,6 +2,7 @@
     <body>
 <?php
     $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade']];
+
     $tables = [
             'Local' => ['Morada do Local'],
             'EventoEmergencia' => ['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro'],
@@ -13,25 +14,28 @@
             'MeioApoio' => ['Numero do Meio', 'Nome da Entidade']
         ];
 
-    function printTable($column_names, $content){
-        echo("<table border=\"1\">\n");
+    function printTable($column_names, $content, $table_name = ''){
+        echo("<table class = 'table " . $table_name . "' border=\"1\">\n");
         
         $array_size = count($column_names);
+
         //Nomes das colunas
-        echo("<tr>");
-        $i = 0;
+
+        echo("<tr class = 'tableHeaderRow " . $table_name . "HeaderRow'>");
+        
         foreach($column_names as $column_name){
-            echo("<td>");
+            echo("<th class = 'tableHeaderCell " . $table_name . "HeaderCell'>");
             echo($column_name);
-            echo("</td>");
+            echo("</th>");
         }
         echo("</tr>");
+
         //Objetos
         foreach ($content as $row) {
-            echo("<tr>");
+            echo("<tr class = 'tableRow " . $table_name . "Row'>");
             $i = 0;
             while($i < $array_size){
-                echo("<td>");
+                echo("<td class = 'tableCell " . $table_name . "Cell'>");
                 echo($row[$i]);
                 echo("</td>");
                 $i = $i + 1;
