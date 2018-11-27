@@ -3,6 +3,17 @@
 <?php
     $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade']];
 
+    $tables = [
+            'Local' => ['Morada do Local'],
+            'EventoEmergencia' => ['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro'],
+            'ProcessoSocorro' => ['Numero do Processo de Socorro'],
+            'EntidadeMeio' => ['Morada do Local'],
+            'Meio' => ['Numero do Meio', 'Nome do Meio', 'Nome da Entidade'],
+            'MeioCombate' => ['Numero do Meio', 'Nome da Entidade'],
+            'MeioSocorro' => ['Numero do Meio', 'Nome da Entidade'],
+            'MeioApoio' => ['Numero do Meio', 'Nome da Entidade']
+        ];
+
     function printTable($column_names, $content, $table_name = ''){
         echo("<table class = 'table " . $table_name . "' border=\"1\">\n");
         

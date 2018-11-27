@@ -2,10 +2,9 @@
     <body>
 <?php
     $type = $_REQUEST['type'];
-    //PK is a list of primary keys
     $pk = $_REQUEST['pk'];
 
-    $columskeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio'], 'EntidadeMeio' => ['nomeentidade']];
+    include "functions.php";
 
     try
     {
@@ -16,71 +15,29 @@
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT * FROM " . $type . " WHERE ";
-	
-        $i = 0;
-	
-        foreach ($columskeys[$type] as $key) {
-	    echo($key);
-            if($i != 0) {
-                $sql = $sql . " AND ";
-            }
-	    
-	    if($key == 'moradalocal' || $key == 'nomeentidade'){
-		$sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
-	    }
-	
-	    else if($key == 'instantechamada'){
-		$sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
-	    }
-
-	    else{
-            	$sql = $sql . $key . " = " . $pk[$i];
-	    }
-		
-	    $i = $i + 1;
+        foreach($tables[$type] as $column){
+            if(isset($_REQUEST[$column]))
+                echo("found one: " . $_REQUEST[$column]);
         }
-	
-        $sql = $sql . ";";
 
-        echo("<p>$sql</p>");
+        $content = [];
+        $elements = [];
+        echo("<form action=''>");
+        foreach($tables[$type] as $column){
+            array_push($elements,'
+                            <p><input type="text" name="' . $column . '"/></p>
+                        </form>');
+        }
+        array_push($content, $elements);
+        printTable($tables[$type], $content);
+        echo('
+                <p><input type="submit" value="Insert"/></p>
+            </form>');
+
+        /*$sql = "INSERT INTO " . $type . " VALUES(";
 
         $result = $db->prepare($sql);
-        $result->execute();
-        
-        $db = null;
-
-        //PRINTING SQL
-
-        echo("<table border=\"1\">\n");
-        
-        $result = $result->fetchAll();
-
-        $column_names = array_keys($result[0]);
-        $array_size = count($column_names);
-        //Nomes das colunas
-        echo("<tr>");
-        $i = 0;
-        while($i < $array_size){
-            echo("<td>");
-            echo($column_names[$i]);
-            echo("</td>");
-            $i = $i + 2;
-        }
-        echo("</tr>");
-        //Objetos
-        foreach ($result as $row) {
-            echo("<tr>");
-            $i = 0;
-            while($i < $array_size/2){
-                echo("<td>");
-                echo($row[$i]);
-                echo("</td>");
-                $i = $i + 1;
-            }
-            echo("</tr>");
-        }
-        echo("</table>\n");
+        $result->execute();*/
         
         $db = null;
     }
