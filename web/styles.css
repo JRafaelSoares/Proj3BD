@@ -37,3 +37,64 @@
 .MenuButton:hover {
 	background-color: white;
 }
+
+.ColumnLeft {
+	position: absolute;
+
+	left: 50px;
+	top: 50px;
+
+	width: calc(50% - 100px);
+}
+
+.ColumnRight {
+	position: absolute;
+
+	right: 50px;
+	top: 50px;
+
+	width: calc(50% - 100px);
+}
+
+.ProcessoSocorro {
+	width: 100%;
+}
+
+.Meio {
+	width: 100%;
+}
+
+.table {
+	border: none;
+}
+
+.tableHeaderCell {
+	border: none;
+	padding: 8px;
+}
+
+.tableHeaderRow {
+	border: none;
+}
+
+.tableRow {
+	border: none;
+}
+
+.tableRow:nth-child(even){
+	background-color: #f2f2f2;
+}
+
+.tableCell {
+	border: none;
+
+	padding: 8px;
+}
+
+.ProcessoSocorroRow:hover {
+	background-color: #4CAF50;
+}
+
+.MeioRow:hover {
+	background-color: #4CAF50;
+}
