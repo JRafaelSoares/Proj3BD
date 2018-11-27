@@ -1,10 +1,9 @@
 <html>
     <body>
 <?php
-    $type = $_REQUEST['type'];
-    $pk = $_REQUEST['pk'];
-
-    $columskeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio'], 'EntidadeMeio' => ['nomeentidade']];
+    
+    //$ListOfAssociation = eval("return " . $_REQUEST['ListOfAssociation'] . ";";
+    $morada = $_REQUEST['morada'];
 
     try
     {
@@ -12,44 +11,15 @@
         $user ="ist187666";
         $password = "joana0101";
         $dbname = $user;
+        
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT numMeio, nomeEntidade FROM transporta NATURAL JOIN EventoEmergencia WHERE moradaLocal LIKE ";
 
-        $sql = "SELECT * FROM " . $type . " WHERE ";
-	
-        $i = 0;
-	
-        foreach ($columskeys[$type] as $key) {
-	    echo($key);
-            if($i != 0) {
-                $sql = $sql . " AND ";
-            }
-	    
-	    if($key == 'moradalocal' || $key == 'nomeentidade'){
-		$sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
-	    }
-	
-	    else if($key == 'instantechamada'){
-		$sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
-	    }
-
-	    else{
-            	$sql = $sql . $key . " = " . $pk[$i];
-	    }
-		
-	    $i = $i + 1;
-        }
-	
-        $sql = $sql . ";";
-
-        echo("<p>$sql</p>");
-
+        $sql = $sql . "'" . $morada . "';"; 
+        
         $result = $db->prepare($sql);
         $result->execute();
-        
-        $db = null;
-
-        //PRINTING SQL
 
         echo("<table border=\"1\">\n");
         
@@ -80,7 +50,6 @@
             echo("</tr>");
         }
         echo("</table>\n");
-        
         $db = null;
     }
     catch (PDOException $e)

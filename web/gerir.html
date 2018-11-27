@@ -1,64 +1,70 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
     <body>
-        <h3>Gerir (Inserir, remover, editar)</h3>
+        <div class = "MainTitle"><h3>Gerir (Inserir, remover, editar)</h3></div>
+        <div id = "MenuHolder">
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Locais">
+                    <input type = "hidden" name = "type" value = "Local">
+                    <input type = "hidden" name = "columnNames" value = "['Morada do Local']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Eventos de Emergencia">
+                    <input type = "hidden" name = "type" value = "EventoEmergencia">
+                    <input type = "hidden" name = "columnNames" value = "['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Processos de Socorro">
+                    <input type = "hidden" name = "type" value = "ProcessoSocorro">
+                    <input type = "hidden" name = "columnNames" value = "['Numero do Processo de Socorro']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Entidades">
+                    <input type = "hidden" name = "type" value = "EntidadeMeio">
+                    <input type = "hidden" name = "columnNames" value = "['Morada do Local']">
+                </form>
+            </div>
 
-        <div class = "MenuOption">
-            Local
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="Local"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Evento de Emergencia
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="EventoEmergencia"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Processos de Socorro
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="ProcessoSocorro"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Meios
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="Meio"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Entidades
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="EntidadeMeio"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Meios de Combate
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="MeioCombate"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Meios de Apoio
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="MeioApoio"/>
-            </form>
-        </div>
-        <div class = "MenuOption">
-            Meios de Socorro
-            <form action = "gerir.php">
-                <input type="submit" value="Gerir">
-                <input type="hidden" name="type" value="MeioSocorro"/>
-            </form>
+            <!--  "[​'Numero do Meio​', 'Nome do Meio', ​'Nome da Entidade']"  -->
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Meios">
+                    <input type = "hidden" name = "type" value = "Meio">
+                    <input type = "hidden" name = "columnNames" value = "['Numero do Meio', 'Nome do Meio', 'Nome da Entidade']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Meios de Combate">
+                    <input type = "hidden" name = "type" value = "MeioCombate">
+                    <input type = "hidden" name = "columnNames" value = "['Numero do Meio', 'Nome da Entidade']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type="submit" value = "Meios de Apoio">
+                    <input type = "hidden" name = "type" value = "MeioApoio">
+                    <input type = "hidden" name = "columnNames" value = "['Numero do Meio', 'Nome da Entidade']">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type = "submit" value = "Meios de Socorro">
+                    <input type = "hidden" name = "type" value = "MeioSocorro">
+                    <input type = "hidden" name = "columnNames" value = "['Numero do Meio', 'Nome da Entidade']">
+                </form>
+            </div>
         </div>
 
-        
     </body>
 </html>
