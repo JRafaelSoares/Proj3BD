@@ -1,8 +1,44 @@
 <html>
-    <body>
-        <h3>Menu</h3>
 
-        <div class = "MenuOption">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <div class = "MainTitle"><h3>Main Menu</h3></div>
+
+
+        <div id = "MenuHolder">
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.html">
+                    <input class = "MenuButton" type="submit" value="Gerir (Inserir, remover, editar)">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.html">
+                    <input class = "MenuButton" type="submit" value="Associar Processos de Socorro a Meios">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.html">
+                    <input class = "MenuButton" type="submit" value="Associar Processos de Socorro a Eventos de Emergencia">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type="submit" value="Listar os Meios Accionados num Processo de Socorro">
+                </form>
+            </div>
+            <div class = "MenuOption MainMenuOption">
+                <form action = "gerir.php">
+                    <input class = "MenuButton" type="submit" value="Listar os Meios Accionados num Processo de Socorro num Dado Local de Incendio">
+                </form>
+            </div>
+        </div>
+
+
+
+        <!--<div class = "MenuOption">
         	<form action = "gerir.html">
         		<input type="submit" value="Gerir (Inserir, remover, editar)">
         	</form>
@@ -26,7 +62,7 @@
         	<form action = "/Gerir.html">
         		<input type="submit" value="Gerir (Inserir, remover, editar)">
         	</form>
-        </div>
+        </div>-->
         
     </body>
 </html>
