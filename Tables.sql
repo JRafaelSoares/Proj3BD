@@ -107,19 +107,19 @@ create table MeioSocorro
     constraint fk_MeioSocorro_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
 
 create table Transporta
-   (nomeEntidade varchar(80) not null,
-    numMeio numeric not null,
-    numProcessoSocorro numeric not null,
+   (numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
     numVitimas numeric not null,
+    numProcessoSocorro numeric not null,
     constraint pk_Transporta primary key(nomeEntidade, numMeio, numProcessoSocorro),
     constraint fk_Transporta_MeioSocorro foreign key (numMeio, nomeEntidade) references MeioSocorro(numMeio, nomeEntidade),
     constraint fk_Transporta_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
 
 create table Alocado
-   (nomeEntidade varchar(80) not null,
-    numMeio numeric not null,
-    numProcessoSocorro numeric not null,
+    (numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
     numHoras numeric not null,
+    numProcessoSocorro numeric not null,
     constraint pk_Alocado primary key(nomeEntidade, numMeio, numProcessoSocorro),
     constraint fk_Alocado_MeioApoio foreign key (numMeio, nomeEntidade) references MeioApoio(numMeio, nomeEntidade),
     constraint fk_Alocado_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
@@ -137,10 +137,10 @@ create table Coordenador
     constraint pk_Coordenador primary key(idCoordenador));
 
 create table Audita
-   (nomeEntidade varchar(80) not null,
+   (idCoordenador numeric not null,
     numMeio numeric not null,
+    nomeEntidade varchar(80) not null,
     numProcessoSocorro numeric not null,
-    idCoordenador numeric not null,
     datahoraInicio timestamp not null,
     datahoraFim timestamp not null check(datahoraFim > datahoraInicio),
     dataAuditoria timestamp not null check(dataAuditoria >= CURRENT_TIMESTAMP),
