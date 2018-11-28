@@ -8,7 +8,7 @@
         <?php
             include "functions.php";
             $type = $_REQUEST['type'];
-            $column_names = eval("return " . $_REQUEST['columnNames'] . ";");
+            $column_names = $tables[$type];
             if(in_array($type, $EditPermissions))
                 array_push($column_names, "Remove", "Edit");
             else
@@ -60,7 +60,6 @@
                     $values = "['";
 
                     for($i = 0; $i < count($primaryKeys[$type]); $i++){
-                        echo($i);
                         if($i == count($primaryKeys[$type]) - 1){
                             $values .= $row[$primaryKeys[$type][$i]] . "'";
                             break;
@@ -74,7 +73,6 @@
                     $editWithValues = sprintf($edit, $values);
                     array_push($result[$key], $removeWithValues);
                     array_push($result[$key], $editWithValues);
-                    echo($values);
                 }
 
                 array_unshift($result, [$add]);

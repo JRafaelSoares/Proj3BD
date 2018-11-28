@@ -21,19 +21,7 @@
             if($i != 0) {
                 $sql = $sql . " AND ";
             }
-	    
-    	    if($key == 'moradalocal' || $key == 'nomeentidade' || $key == 'nomepessoa'){
-    		    $sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
-    	    }
-    	
-    	    else 
-                if($key == 'instantechamada'){
-    		    $sql = $sql . $key . " = " . " '" . $pk[$i] . "' ";
-    	    }
-
-    	    else{
-                $sql = $sql . $key . " = " . $pk[$i];
-    	    }
+            $sql .= $key . toCompare($key) . toCorrectType($key, $pk[$i]);
     		
     	    $i = $i + 1;
         }
