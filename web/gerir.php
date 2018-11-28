@@ -45,6 +45,7 @@
                         <input class = 'MenuButton' type = 'submit' value = 'Edit'>
                         <input type = 'hidden' name = 'pk' value = \"%s\">
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
+                        <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
                 $add = "
@@ -52,6 +53,7 @@
                     <form action = 'insert.php'>
                         <input class = 'MenuButton' type = 'submit' value = 'Insert new row'>
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
+                        <input type = 'hidden' name = 'url' value = 'http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'>
                     </form> 
                 </div>";
                 
@@ -66,7 +68,7 @@
                     }
                     $values .= "]";
                     $removeWithValues = sprintf($remove, $values);
-                    $editWithValues = sprintf($edit, $values);
+                    $editWithValues = sprintf($edit, $values, $_SERVER[HTTP_HOST], $_SERVER[REQUEST_URI]);
                     array_push($result[$key], $removeWithValues);
                     array_push($result[$key], $editWithValues);
                 }

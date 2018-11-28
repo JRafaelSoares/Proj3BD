@@ -35,7 +35,8 @@
             echo($sql);
             $result = $db->prepare($sql);
             $result->execute();
-
+            $newURL = $_REQUEST['url'];
+            header('Location: ' . $newURL);
         }
 
         $content = [];

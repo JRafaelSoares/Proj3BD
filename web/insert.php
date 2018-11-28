@@ -17,6 +17,7 @@
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
         //Quando faz submit
         if(isset($_POST['submit'])){
             $sql = "INSERT INTO " . $type . " VALUES(";
@@ -31,6 +32,8 @@
             echo($sql);
             $result = $db->prepare($sql);
             $result->execute();
+            $newURL = $_REQUEST['url'];
+            header('Location: ' . $newURL);
         }
 
         $content = [];

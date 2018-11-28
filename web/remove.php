@@ -35,7 +35,7 @@
         
         $result = $result->fetchAll();
         
-        printTable(['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro'], $result);
+        printTable($tables[$type], $result);
         
         $db = null;
     }
