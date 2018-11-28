@@ -20,8 +20,53 @@
                 $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
+                $type1 = "ProcessoSocorro";
+                $type2 = "Meio";
+
+
+                $columnNum1 = count($tables[$type1]);
+                $columnNum2 = count($tables[$type2]);
+
+                $type = "acciona";
+
                 if(isset($_POST['ProcessoSelect']) && isset($_POST['MeioSelect'])){
-                    echo($_POST['ProcessoSelect'] . " " . $_POST['MeioSelect']);
+                    $sql = "INSERT INTO " . $type . " VALUES(";
+
+                    $valuesProc = explode(",", $_POST['ProcessoSelect']);
+                    $valuesMeio = explode(",", $_POST['MeioSelect']);
+
+                    $columnNumType = count($tables[$type]);
+
+                    for($i = 0; $i < $)
+
+                    for($i = 0; $i < $columnNum1; $i++){
+
+                        if()
+
+
+                        if($i == $columnNum1 - 1){
+                            $sql .= toCorrectType($tables[$type][$i], $_POST[$i]) . ");";
+                            break;
+                        }
+
+                        $sql .= toCorrectType($tables[$type][$i], $_POST[]) . ", ";
+                    }
+
+                    for($i = 0; $i < $columnNum2; $i++){
+                        if($i == count($tables[$type]) - 1){
+                            $sql .= toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]) .");";
+                            break;
+                        }
+
+                        $sql .= toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]) . ", ";
+                    }
+
+                    echo($sql);
+
+                    $result = $db->prepare($sql);
+
+                    $result->execute();
                 }
                 
                 $sql1 = "SELECT * FROM ProcessoSocorro;";
@@ -59,7 +104,7 @@
 
                     $value = "";
 
-                    for($i = 0; $i < $result1Count; $i++){
+                    for($i = 0; $i < $columnNum1; $i++){
                         $value .= $row[$i] . ",";
                     }
 
@@ -78,7 +123,7 @@
 
                     $value = "";
 
-                    for($i = 0; $i < $result1Count; $i++){
+                    for($i = 0; $i < $columnNum2; $i++){
                         $value .= $row[$i] . ",";
                     }
 

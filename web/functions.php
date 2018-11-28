@@ -11,7 +11,8 @@
             'Meio' => ['Numero do Meio', 'Nome do Meio', 'Nome da Entidade'],
             'MeioCombate' => ['Numero do Meio', 'Nome da Entidade'],
             'MeioSocorro' => ['Numero do Meio', 'Nome da Entidade'],
-            'MeioApoio' => ['Numero do Meio', 'Nome da Entidade']
+            'MeioApoio' => ['Numero do Meio', 'Nome da Entidade'],
+            'Acciona' => ['Numero do Meio', 'Nome da Entidade', 'Numero do Processo de Socorro']
         ];
     $EditPermissions = ['MeioCombate', 'MeioApoio', 'MeioSocorro'];
     $ElementsTypeInt = ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'];
