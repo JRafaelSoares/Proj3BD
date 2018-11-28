@@ -91,10 +91,18 @@
 	padding: 8px;
 }
 
-.ProcessoSocorroRow:hover {
+/*.ProcessoSocorroRow:hover {
 	background-color: #4CAF50;
 }
 
 .MeioRow:hover {
 	background-color: #4CAF50;
+}*/
+
+.selectionCell {
+	width: 5%;
+}
+
+.radioSelect {
+	cursor: pointer;
 }
