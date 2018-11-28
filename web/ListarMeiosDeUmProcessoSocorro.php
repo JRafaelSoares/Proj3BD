@@ -1,10 +1,12 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
     <body>
 <?php
     
-    //$ListOfAssociation = eval("return " . $_REQUEST['ListOfAssociation'] . ";";
+    include "functions.php";
     $ListOfAssociation = ["ProcessoSocorro", "Acciona", "Meio"];
-    $numProcessoSocorro = 1;
     try
     {
         $host = "db.ist.utl.pt";
@@ -14,49 +16,102 @@
         
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT numMeio, nomeEntidade FROM ";
+        $sql = "SELECT numMeio, nomeMeio, nomeEntidade FROM ";
+        
+        $type1 = "ProcessoSocorro";
+        $type2 = "Meio";
 
-        for($i = 0; $i < count($ListOfAssociation); $i++){
-            if($i == count($ListOfAssociation) - 1){
-                $sql = $sql . $ListOfAssociation[$i];
-                break;
+        $columnNum1 = count($tables[$type1]);
+        $columnNum2 = count($tables[$type2]);
+
+        $processo1 = isset($_POST[$type1 . 'Select']);
+        $numProcessoSocorro2 = $_POST['selectedProcess'];
+
+        if($processo1 || $numProcessoSocorro2 != ""){
+            $numProcessoSocorro1 = $_POST[$type1 . 'Select'];
+            if($processo1 && $numProcessoSocorro2 != "")
+                if($numProcessoSocorro1 == $numProcessoSocorro2)
+                    $numProcessoSocorro = $numProcessoSocorro1;
+                else{
+                    echo('Seleccionado um processo diferente do escrito');
+                    return;
+                }
+            else
+                $numProcessoSocorro = $processo1 ? $numProcessoSocorro1 : $numProcessoSocorro2;
+
+            for($i = 0; $i < count($ListOfAssociation); $i++){
+                if($i == count($ListOfAssociation) - 1){
+                    $sql = $sql . $ListOfAssociation[$i];
+                    break;
+                }
+                $sql = $sql . $ListOfAssociation[$i] . " NATURAL JOIN ";
             }
-            $sql = $sql . $ListOfAssociation[$i] . " NATURAL JOIN ";
+            $sql = $sql . " WHERE numProcessoSocorro = " . $numProcessoSocorro . ";";
+
+            $result2 = $db->prepare($sql);
+            $result2->execute();
+            $result2 = $result2->fetchAll();
+
+            echo("<div class = 'ColumnRight'>");
+
+            foreach($result2 as $key => $row){
+
+                $value = "";
+
+                for($i = 0; $i < $columnNum2; $i++){
+                    $value .= $row[$i] . ",";
+                }
+
+                //array_push($result2[$key], sprintf($selectionType2, substr($value, 0, -1)));
+            }
+
+            //array_push($tables[$type2], "");
+
+            printTable($tables[$type2], $result2, $type2, "selectionCell");
+            echo("</div></form>");
         }
-        $sql = $sql . " WHERE numProcessoSocorro = " . $numProcessoSocorro . ";";
+
+        $sql = "SELECT * FROM " . $type1 . ";";
 
         $result = $db->prepare($sql);
+
         $result->execute();
-
-        echo("<table border=\"1\">\n");
-        
         $result = $result->fetchAll();
+        
+        $resultCount = count($result);
 
-        $column_names = array_keys($result[0]);
-        $array_size = count($column_names);
-        //Nomes das colunas
-        echo("<tr>");
-        $i = 0;
-        while($i < $array_size){
-            echo("<td>");
-            echo($column_names[$i]);
-            echo("</td>");
-            $i = $i + 2;
-        }
-        echo("</tr>");
-        //Objetos
-        foreach ($result as $row) {
-            echo("<tr>");
-            $i = 0;
-            while($i < $array_size/2){
-                echo("<td>");
-                echo($row[$i]);
-                echo("</td>");
-                $i = $i + 1;
+        $selection = "
+            <input type = 'radio' name = '" . $type1 . "Select' class = 'radioSelect' value = '%s'>
+        ";
+
+        $selectByTyping = "
+                    <input type = 'text' name = 'selectedProcess'>";
+
+        echo("<form method = 'post'>
+                <input class = 'confirmButtonAssocia' type='submit' value='Confirmar'>
+        ");
+
+        echo("<div class = 'ColumnLeft'>");
+
+        foreach($result as $key => $row){
+
+            $value = "";
+
+            for($i = 0; $i < $columnNum1; $i++){
+                $value .= $row[$i] . ",";
             }
-            echo("</tr>");
+
+            array_push($result[$key], sprintf($selection, substr($value, 0, -1)));
         }
-        echo("</table>\n");
+        array_push($tables[$type1], "");
+
+        array_unshift($result, [$selectByTyping]);
+
+        printTable($tables[$type1], $result, $type1, "selectionCell");
+
+        echo("</div>");
+
+        
         $db = null;
     }
     catch (PDOException $e)
