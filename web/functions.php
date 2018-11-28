@@ -1,7 +1,7 @@
 <html>
     <body>
 <?php
-    $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade']];
+    $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada', 'nomepessoa', 'moradalocal', 'numprocessosocorro'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade'], 'MeioCombate' => ['nummeio', 'nomeentidade'], 'MeioApoio' => ['nummeio', 'nomeentidade'], 'MeioSocorro' => ['nummeio', 'nomeentidade']];
 
     $tables = [
             'Local' => ['Morada do Local'],
@@ -13,6 +13,7 @@
             'MeioSocorro' => ['Numero do Meio', 'Nome da Entidade'],
             'MeioApoio' => ['Numero do Meio', 'Nome da Entidade']
         ];
+    $EditPermissions = ['MeioCombate', 'MeioApoio', 'MeioSocorro'];
 
     function printTable($column_names, $content, $table_name = '', $last_row_id = ''){
         echo("<table class = 'table " . $table_name . "' border=\"1\">\n");

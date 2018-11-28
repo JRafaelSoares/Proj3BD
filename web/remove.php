@@ -22,7 +22,7 @@
                 $sql = $sql . " AND ";
             }
 	    
-    	    if($key == 'moradalocal' || $key == 'nomeentidade'){
+    	    if($key == 'moradalocal' || $key == 'nomeentidade' || $key == 'nomepessoa'){
     		    $sql = $sql . $key . " like " . " '" . $pk[$i] . "' ";
     	    }
     	

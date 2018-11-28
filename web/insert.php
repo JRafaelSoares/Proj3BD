@@ -1,8 +1,10 @@
 <html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
     <body>
 <?php
     $type = $_REQUEST['type'];
-    $pk = $_REQUEST['pk'];
 
     include "functions.php";
 
@@ -14,11 +16,8 @@
         $dbname = $user;
         $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        /*
-        foreach($tables[$type] as $column){
-            echo(var_dump($_POST[$column]));
-            
-        }*/
+
+        //Quando faz submit
         if(isset($_POST['submit'])){
             $sql = "INSERT INTO " . $type . " VALUES(";
 
@@ -33,7 +32,7 @@
             
                 else{
                     if($i == count($tables[$type]) - 1){
-                        $sql .= "'" . $_POST[str_replace(' ', '', $tables[$type][$i])] .");" . "'";
+                        $sql .= "'" . $_POST[str_replace(' ', '', $tables[$type][$i])] ."');";
                         break;
                     }
                     $sql .= "'" . $_POST[str_replace(' ', '', $tables[$type][$i])] . "', ";

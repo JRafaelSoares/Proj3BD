@@ -9,8 +9,11 @@
             include "functions.php";
             $type = $_REQUEST['type'];
             $column_names = eval("return " . $_REQUEST['columnNames'] . ";");
-            array_push($column_names, "Remove", "Edit");
-            
+            if(in_array($type, $EditPermissions))
+                array_push($column_names, "Remove", "Edit");
+            else
+                array_push($column_names, "Remove");
+
             try
             {
                 $host = "db.ist.utl.pt";
@@ -39,7 +42,7 @@
                 $edit = "
                 <div class = 'Button EditButton'>
                     <form action = 'edit.php'>
-                        <input class = 'MenuButton' type = 'submit' value = 'Confirm'>
+                        <input class = 'MenuButton' type = 'submit' value = 'Edit'>
                         <input type = 'hidden' name = 'pk' value = \"%s\">
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
                     </form>
@@ -55,6 +58,7 @@
                 foreach($result as $key => $row){
                     $values = "['";
                     for($i = 0; $i < count($primaryKeys[$type]); $i++){
+                        echo($i);
                         if($i == count($primaryKeys[$type]) - 1){
                             $values .= $row[$primaryKeys[$type][$i]] . "'";
                             break;
@@ -66,6 +70,7 @@
                     $editWithValues = sprintf($edit, $values);
                     array_push($result[$key], $removeWithValues);
                     array_push($result[$key], $editWithValues);
+                    echo($values);
                 }
 
                 array_unshift($result, [$add]);
