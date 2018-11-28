@@ -16,13 +16,24 @@ having count(*) >= all(
 
 --2.
 
-select nomeEntidade, count(nomeentidade)
+Select nomeentidade
 
 from EventoEmergencia NATURAL JOIN Acciona
 
-Group by nomeentidade;
+Group by nomeentidade
 
-WHERE instanteChamada BETWEEN '2018-01-01 00:00' AND '2018-12-31 23:59'
+WHERE instanteChamada BETWEEN '2018-06-21 00:00' AND '2018-09-23 23:59'
+
+Having count(*) >= all(
+	
+	select count(*)
+	
+	from EventoEmergencia NATURAL JOIN Acciona
+
+	Group by nomeentidade
+
+	WHERE instanteChamada BETWEEN '2018-06-21 00:00' AND '2018-09-23 23:59'
+);
 
 
 --3.
