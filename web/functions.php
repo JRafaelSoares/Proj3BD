@@ -14,10 +14,9 @@
             'MeioApoio' => ['Numero do Meio', 'Nome da Entidade']
         ];
     $EditPermissions = ['MeioCombate', 'MeioApoio', 'MeioSocorro'];
-
     $ElementsTypeInt = ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'];
-
-    function printTable($column_names, $content, $table_name = ''){
+    
+    function printTable($column_names, $content, $table_name = '', $last_row_id = ''){
         echo("<table class = 'table " . $table_name . "' border=\"1\">\n");
         
         $array_size = count($column_names);
@@ -38,7 +37,7 @@
             echo("<tr class = 'tableRow " . $table_name . "Row'>");
             $i = 0;
             while($i < $array_size){
-                echo("<td class = 'tableCell " . $table_name . "Cell'>");
+                echo("<td class = 'tableCell " . $last_row_id . " " . $table_name . "Cell'>");
                 echo($row[$i]);
                 echo("</td>");
                 $i = $i + 1;

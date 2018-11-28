@@ -6,12 +6,11 @@
 
     <body>
         <?php
+
             include "functions.php";
 
             try
             {
-                $column_names_processo = ['Numero do Processo de Socorro'];
-                $column_names_meio = ['Numero do Meio', 'Nome do Meio', 'Nome da Entidade'];
 
                 $host = "db.ist.utl.pt";
                 $user ="ist187666";
@@ -34,13 +33,38 @@
                 $result1 = $result1->fetchAll();
                 $result2 = $result2->fetchAll();
 
+                $result1Count = count($result1);
+                $result2Count = count($result2);
+
+
+                $selectionProcesso = "
+                    <input type = 'radio' name = 'ProcessoSelect' class = 'radioSelect' value = '%s'>
+                "
+
+                $selectionMeio = "
+                    <input type = 'radio' name = 'MeioSelect' class = 'radioSelect' value = '%s'>
+                "
+
 
                 echo("<div class = 'ColumnLeft'>");
-                printTable($column_names_processo, $result1, "ProcessoSocorro");
+
+                foreach($result1 as $row){
+                    for($i = 0; $i < $result1Count; $i++){
+                        array_push($result1[$row[$i]], sprintf($selectionProcesso, $row[$i]));
+                    }
+                }
+
+                array_push($tables['ProcessoSocorro'], [""]);
+
+                printTable($tables['ProcessoSocorro'], $result1, "ProcessoSocorro", "selectionCell");
+
                 echo("</div>");
 
                 echo("<div class = 'ColumnRight'>");
-                printTable($column_names_meio, $result2, "Meio");
+
+                array_push($tables['Meio'], [""]);
+
+                printTable($tables['Meio'], $result2, "Meio", "selectionCell");
                 echo("</div>");
 
                 $db = null;
