@@ -30,15 +30,17 @@
 
                 $type = "acciona";
 
-                if(isset($_POST['ProcessoSelect']) && isset($_POST['MeioSelect'])){
+                if(isset($_POST[$type1 . 'Select']) && isset($_POST[$type2 . 'Select'])){
                     $sql = "INSERT INTO " . $type . " VALUES(";
 
-                    $valuesProc = explode(",", $_POST['ProcessoSelect']);
-                    $valuesMeio = explode(",", $_POST['MeioSelect']);
+                    $valuesType1 = explode(",", $_POST[$type1 . 'Select']);
+                    $valuesType2 = explode(",", $_POST[$type2 . 'Select']);
 
                     $columnNumType = count($tables[$type]);
 
-                    for($i = 0; $i < $)
+                    for($i = 0; $i < $columnNumType; $i++){
+                        for()
+                    }
 
                     for($i = 0; $i < $columnNum1; $i++){
 
@@ -69,8 +71,8 @@
                     $result->execute();
                 }
                 
-                $sql1 = "SELECT * FROM ProcessoSocorro;";
-                $sql2 = "SELECT * FROM Meio;";
+                $sql1 = "SELECT * FROM " . $type1 . ";";
+                $sql2 = "SELECT * FROM " . $type2 . ";";
 
 
                 $result1 = $db->prepare($sql1);
@@ -86,15 +88,15 @@
                 $result2Count = count($result2);
 
 
-                $selectionProcesso = "
-                    <input type = 'radio' name = 'ProcessoSelect' class = 'radioSelect' value = '%s'>
+                $selectionType1 = "
+                    <input type = 'radio' name = '" . $type1 . "Select' class = 'radioSelect' value = '%s'>
                 ";
 
-                $selectionMeio = "
-                    <input type = 'radio' name = 'MeioSelect' class = 'radioSelect' value = '%s'>
+                $selectionType2 = "
+                    <input type = 'radio' name = '" . $type2 . "Select' class = 'radioSelect' value = '%s'>
                 ";
 
-                echo("<form action = 'associaProcesso.php' method = 'post'>
+                echo("<form method = 'post'>
                         <input class = 'confirmButtonAssocia' type='submit' value='Confirmar'>
                 ");
 
@@ -108,12 +110,12 @@
                         $value .= $row[$i] . ",";
                     }
 
-                    array_push($result1[$key], sprintf($selectionProcesso, substr($value, 0, -1)));
+                    array_push($result1[$key], sprintf($selectionType1, substr($value, 0, -1)));
                 }
 
-                array_push($tables['ProcessoSocorro'], "");
+                array_push($tables[$type1], "");
 
-                printTable($tables['ProcessoSocorro'], $result1, "ProcessoSocorro", "selectionCell");
+                printTable($tables[$type1], $result1, $type1, "selectionCell");
 
                 echo("</div>");
 
@@ -127,12 +129,12 @@
                         $value .= $row[$i] . ",";
                     }
 
-                    array_push($result2[$key], sprintf($selectionMeio, substr($value, 0, -1)));
+                    array_push($result2[$key], sprintf($selectionType2, substr($value, 0, -1)));
                 }
 
-                array_push($tables['Meio'], "");
+                array_push($tables[$type2], "");
 
-                printTable($tables['Meio'], $result2, "Meio", "selectionCell");
+                printTable($tables[$type2], $result2, $type2, "selectionCell");
                 echo("</div></form>");
 
                 $db = null;
