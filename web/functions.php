@@ -15,6 +15,8 @@
         ];
     $EditPermissions = ['MeioCombate', 'MeioApoio', 'MeioSocorro'];
 
+    $ElementsTypeInt = ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'];
+
     function printTable($column_names, $content, $table_name = ''){
         echo("<table class = 'table " . $table_name . "' border=\"1\">\n");
         
@@ -44,6 +46,24 @@
             echo("</tr>");
         }
         echo("</table>\n");
+    }
+
+    function toCorrectType($nameColumn, $value){
+        if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'])){
+            return $value;
+        }
+        else{
+            return "'" . $value . "'";
+        }
+    }
+
+    function toCompare($nameColumn){
+        if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'])){
+            return " = ";
+        }
+        else{
+            return " LIKE ";
+        }
     }
 
 ?>

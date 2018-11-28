@@ -5,6 +5,7 @@
     <body>
 <?php
     $type = $_REQUEST['type'];
+    $pk = eval("return " . $_REQUEST['pk'] . ";");
 
     include "functions.php";
 
@@ -19,26 +20,31 @@
 
         //Quando faz submit
         if(isset($_POST['submit'])){
-            $sql = "INSERT INTO " . $type . " VALUES(";
-
-            for($i = 0; $i < count($tables[$type]); $i++){
-                if($i == count($tables[$type]) - 1){
-                    $sql .= toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]) .");";
-                    break;
+            $sql = "UPDATE " . $type . " SET ";
+            $Where = " WHERE ";
+            for($i = 0; $i < count($primaryKeys[$type]); $i++){
+                $sql .= $primaryKeys[$type][$i] . " = " . toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]);
+                $Where .= $primaryKeys[$type][$i] . " = " . toCorrectType($primaryKeys[$type][$i], $pk[$i]);
+                if($i < count($primaryKeys[$type]) - 1){
+                    $sql .= ", ";
+                    $Where .= " AND ";
                 }
-                $sql .= toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]) . ", ";
             }
+
+            $sql .= $Where . ";";
             echo($sql);
             $result = $db->prepare($sql);
             $result->execute();
+
         }
 
         $content = [];
         $elements = [];
         echo("<form method ='post' action=''>");
-        foreach($tables[$type] as $column){
+        for($i = 0; $i < count($tables[$type]); $i++){
             array_push($elements,'
-                            <p><input type="text" name="' . str_replace(' ', '', $column) . '"/></p>
+                            <p><input type="text" name="' . str_replace(' ', '', $tables[$type][$i]) . '"/
+                            value="' . str_replace(' ', '', $pk[$i]) . '"/></p>
                         ');
         }
         array_push($content, $elements);
