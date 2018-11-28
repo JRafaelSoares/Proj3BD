@@ -56,7 +56,9 @@
                 </div>";
                 
                 foreach($result as $key => $row){
+
                     $values = "['";
+
                     for($i = 0; $i < count($primaryKeys[$type]); $i++){
                         echo($i);
                         if($i == count($primaryKeys[$type]) - 1){
@@ -65,7 +67,9 @@
                         }
                         $values .= $row[$primaryKeys[$type][$i]] . "', '";
                     }
+                    
                     $values .= "]";
+
                     $removeWithValues = sprintf($remove, $values);
                     $editWithValues = sprintf($edit, $values);
                     array_push($result[$key], $removeWithValues);
