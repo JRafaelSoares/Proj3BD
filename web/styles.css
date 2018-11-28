@@ -41,19 +41,19 @@
 .ColumnLeft {
 	position: absolute;
 
-	left: 50px;
-	top: 50px;
+	left: 100px;
+	top: 150px;
 
-	width: calc(50% - 100px);
+	width: calc(50% - 150px);
 }
 
 .ColumnRight {
 	position: absolute;
 
-	right: 50px;
-	top: 50px;
+	right: 100px;
+	top: 150px;
 
-	width: calc(50% - 100px);
+	width: calc(50% - 150px);
 }
 
 .ProcessoSocorro {
@@ -105,4 +105,27 @@
 
 .radioSelect {
 	cursor: pointer;
+}
+
+.container {
+	overflow: auto;
+}
+
+.confirmButtonAssocia {
+	width: calc(100% - 100px);
+
+	height: 50px;
+
+	position: absolute;
+
+	top: 50px;
+	left: 50px;
+
+	background-color: #adadad;
+
+	border: none;
+}
+
+.confirmButtonAssocia:hover {
+	background-color: white;
 }

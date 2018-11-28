@@ -19,6 +19,10 @@
                 
                 $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                if(isset($_POST['ProcessoSelect']) && isset($_POST['MeioSelect'])){
+                    echo($_POST['ProcessoSelect'] . " " . $_POST['MeioSelect']);
+                }
                 
                 $sql1 = "SELECT * FROM ProcessoSocorro;";
                 $sql2 = "SELECT * FROM Meio;";
@@ -39,22 +43,30 @@
 
                 $selectionProcesso = "
                     <input type = 'radio' name = 'ProcessoSelect' class = 'radioSelect' value = '%s'>
-                "
+                ";
 
                 $selectionMeio = "
                     <input type = 'radio' name = 'MeioSelect' class = 'radioSelect' value = '%s'>
-                "
+                ";
 
+                echo("<form action = 'associaProcesso.php' method = 'post'>
+                        <input class = 'confirmButtonAssocia' type='submit' value='Confirmar'>
+                ");
 
                 echo("<div class = 'ColumnLeft'>");
 
-                foreach($result1 as $row){
+                foreach($result1 as $key => $row){
+
+                    $value = "";
+
                     for($i = 0; $i < $result1Count; $i++){
-                        array_push($result1[$row[$i]], sprintf($selectionProcesso, $row[$i]));
+                        $value .= $row[$i] . ",";
                     }
+
+                    array_push($result1[$key], sprintf($selectionProcesso, substr($value, 0, -1)));
                 }
 
-                array_push($tables['ProcessoSocorro'], [""]);
+                array_push($tables['ProcessoSocorro'], "");
 
                 printTable($tables['ProcessoSocorro'], $result1, "ProcessoSocorro", "selectionCell");
 
@@ -62,10 +74,21 @@
 
                 echo("<div class = 'ColumnRight'>");
 
-                array_push($tables['Meio'], [""]);
+                foreach($result2 as $key => $row){
+
+                    $value = "";
+
+                    for($i = 0; $i < $result1Count; $i++){
+                        $value .= $row[$i] . ",";
+                    }
+
+                    array_push($result2[$key], sprintf($selectionMeio, substr($value, 0, -1)));
+                }
+
+                array_push($tables['Meio'], "");
 
                 printTable($tables['Meio'], $result2, "Meio", "selectionCell");
-                echo("</div>");
+                echo("</div></form>");
 
                 $db = null;
             }
