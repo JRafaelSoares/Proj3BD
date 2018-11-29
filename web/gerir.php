@@ -32,27 +32,27 @@
                 $result = $result->fetchAll();
 
                 $remove = "
-                <div class = 'Button RemoveButton'>
-                    <form action = 'remove.php'>
-                        <input class = 'MenuButton' type = 'submit' value = 'Remove'>
+                <div class = 'MenuButton RemoveButton'>
+                    <form class = 'form' action = 'remove.php'>
+                        <input class = 'GerirButton' class = 'MenuButton' type = 'submit' value = 'Remove'>
                         <input type = 'hidden' name = 'pk' value = \"%s\">
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
                         <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
                 $edit = "
-                <div class = 'Button EditButton'>
-                    <form action = 'edit.php'>
-                        <input class = 'MenuButton' type = 'submit' value = 'Edit'>
+                <div class = 'MenuButton EditButton'>
+                    <form class = 'form' action = 'edit.php'>
+                        <input class = 'GerirButton' class = 'MenuButton' type = 'submit' value = 'Edit'>
                         <input type = 'hidden' name = 'pk' value = \"%s\">
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
                         <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
                 $add = "
-                <div class = 'Button AddButton'>
-                    <form action = 'insert.php'>
-                        <input class = 'MenuButton' type = 'submit' value = 'Insert new row'>
+                <div class = 'MenuButton AddButton'>
+                    <form class = 'form' action = 'insert.php'>
+                        <input class = 'GerirButton' class = 'MenuButton' type = 'submit' value = 'Insert new row'>
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
                         <input type = 'hidden' name = 'url' value = 'http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'>
                     </form> 

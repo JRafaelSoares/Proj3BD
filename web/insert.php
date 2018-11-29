@@ -47,7 +47,7 @@
                 array_push($content, $elements);
                 printTable($tables[$type], $content);
                 echo('
-                        <p><input type="submit" name ="submit" value="Insert"/></p>
+                        <p><input type="submit" class = "SimpleButton" name ="submit" value="Insert"/></p>
                     </form>');
                 
                 $db = null;
