@@ -7,8 +7,7 @@
     
     include "functions.php";
     $ListOfAssociation = ["ProcessoSocorro", "Acciona", "Meio"];
-    try
-    {
+    try{
         $host = "db.ist.utl.pt";
         $user ="ist187666";
         $password = "joana0101";
@@ -18,27 +17,30 @@
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT numMeio, nomeMeio, nomeEntidade FROM ";
         
-        $type1 = "ProcessoSocorro";
-        $type2 = "Meio";
+        $SelectionTable = "ProcessoSocorro";
+        $QueryTable = "Meio";
 
-        $columnNum1 = count($tables[$type1]);
-        $columnNum2 = count($tables[$type2]);
+        $columnNum1 = count($tables[$SelectionTable]);
+        $columnNum2 = count($tables[$QueryTable]);
 
-        $processo1 = isset($_POST[$type1 . 'Select']);
-        $numProcessoSocorro2 = $_POST['selectedProcess'];
+        $issetSelection = isset($_POST[$SelectionTable . 'Select']);
+        $SelectionByTypingInput = $_POST['selectedProcess'];
 
-        if($processo1 || $numProcessoSocorro2 != ""){
-            $numProcessoSocorro1 = $_POST[$type1 . 'Select'];
-            if($processo1 && $numProcessoSocorro2 != "")
-                if($numProcessoSocorro1 == $numProcessoSocorro2)
-                    $numProcessoSocorro = $numProcessoSocorro1;
+        //Check if there has been an input
+        if($issetSelection || $SelectionByTypingInput != ""){
+            //Verificacao de que o input nao e contraditorio
+            $numProcessoSocorroSelected = $_POST[$SelectionTable . 'Select'];
+            if($issetSelection && $SelectionByTypingInput != "")
+                if($numProcessoSocorroSelected == $SelectionByTypingInput)
+                    $numProcessoSocorro = $numProcessoSocorroSelected;
                 else{
                     echo('Seleccionado um processo diferente do escrito');
                     return;
                 }
             else
-                $numProcessoSocorro = $processo1 ? $numProcessoSocorro1 : $numProcessoSocorro2;
+                $numProcessoSocorro = $issetSelection ? $numProcessoSocorroSelected : $SelectionByTypingInput;
 
+            //Preparacao do query
             for($i = 0; $i < count($ListOfAssociation); $i++){
                 if($i == count($ListOfAssociation) - 1){
                     $sql = $sql . $ListOfAssociation[$i];
@@ -52,26 +54,13 @@
             $result2->execute();
             $result2 = $result2->fetchAll();
 
+            //Print da tabela
             echo("<div class = 'ColumnRight'>");
-
-            foreach($result2 as $key => $row){
-
-                $value = "";
-
-                for($i = 0; $i < $columnNum2; $i++){
-                    $value .= $row[$i] . ",";
-                }
-
-                //array_push($result2[$key], sprintf($selectionType2, substr($value, 0, -1)));
-            }
-
-            //array_push($tables[$type2], "");
-
-            printTable($tables[$type2], $result2, $type2, "selectionCell");
+            printTable($tables[$QueryTable], $result2, $QueryTable);
             echo("</div></form>");
         }
-
-        $sql = "SELECT * FROM " . $type1 . ";";
+        //Preparacao da tabela a mostrar para o utilizador seleccionar uma linha
+        $sql = "SELECT * FROM " . $SelectionTable . ";";
 
         $result = $db->prepare($sql);
 
@@ -81,7 +70,7 @@
         $resultCount = count($result);
 
         $selection = "
-            <input type = 'radio' name = '" . $type1 . "Select' class = 'radioSelect' value = '%s'>
+            <input type = 'radio' name = '" . $SelectionTable . "Select' class = 'radioSelect' value = '%s'>
         ";
 
         $selectByTyping = "
@@ -103,14 +92,13 @@
 
             array_push($result[$key], sprintf($selection, substr($value, 0, -1)));
         }
-        array_push($tables[$type1], "");
+        array_push($tables[$SelectionTable], "");
 
         array_unshift($result, [$selectByTyping]);
 
-        printTable($tables[$type1], $result, $type1, "selectionCell");
+        printTable($tables[$SelectionTable], $result, $SelectionTable, "selectionCell");
 
         echo("</div>");
-
         
         $db = null;
     }
