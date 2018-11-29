@@ -37,6 +37,7 @@
                         <input class = 'MenuButton' type = 'submit' value = 'Remove'>
                         <input type = 'hidden' name = 'pk' value = \"%s\">
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
+                        <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
                 $edit = "
@@ -71,7 +72,7 @@
                     
                     $values .= "]";
 
-                    $removeWithValues = sprintf($remove, $values);
+                    $removeWithValues = sprintf($remove, $values, $_SERVER[HTTP_HOST], $_SERVER[REQUEST_URI]);
                     $editWithValues = sprintf($edit, $values, $_SERVER[HTTP_HOST], $_SERVER[REQUEST_URI]);
                     array_push($result[$key], $removeWithValues);
                     array_push($result[$key], $editWithValues);

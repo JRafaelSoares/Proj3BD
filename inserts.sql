@@ -17,6 +17,7 @@ INSERT INTO EventoEmergencia(numTelefone, instanteChamada, nomePessoa, moradaLoc
 INSERT INTO EventoEmergencia(numTelefone, instanteChamada, nomePessoa, moradaLocal, numProcessoSocorro) VALUES (123123125, '2017-06-30 19:19:18', 'Miguel', 'Cascais', 1);
 INSERT INTO EventoEmergencia(numTelefone, instanteChamada, nomePessoa, moradaLocal, numProcessoSocorro) VALUES (123123127, '2017-06-30 19:19:18', 'Ze', 'Oliveira do Hospital', 1);
 INSERT INTO EventoEmergencia(numTelefone, instanteChamada, nomePessoa, moradaLocal, numProcessoSocorro) VALUES (123123129, '2018-06-30 19:19:18', 'Igu', 'Oliveira do Hospital', 1);
+INSERT INTO EventoEmergencia(numTelefone, instanteChamada, nomePessoa, moradaLocal, numProcessoSocorro) VALUES (123123157, '2018-06-30 19:19:18', 'KAPPA', 'Oliveira do Hospital', null);
 
 
 --ACCIONA

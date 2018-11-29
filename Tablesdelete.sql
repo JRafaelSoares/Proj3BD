@@ -147,7 +147,7 @@ create table Audita
     texto varchar(255) not null,
     constraint pk_Audita primary key(nomeEntidade, numMeio, numProcessoSocorro, idCoordenador),
     constraint fk_Audita_Coordenador foreign key (idCoordenador) references Coordenador(idCoordenador),
-    constraint fk_Audita_Acciona foreign key (nomeEntidade, numMeio, numProcessoSocorro) references Acciona(nomeEntidade, numMeio, numProcessoSocorro));
+    constraint fk_Audita_Acciona foreign key (nomeEntidade, numMeio, numProcessoSocorro) references Acciona(nomeEntidade, numMeio, numProcessoSocorro) on delete cascade);
 
 create table Solicita
    (idCoordenador numeric not null,
