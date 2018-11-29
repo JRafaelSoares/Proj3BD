@@ -79,4 +79,4 @@ From (
 Group by nomeentidade
 
 Having count(nomeentidade) >= (
-	Select count(numProcessoSocorro) from ProcessoSocorro);
+	Select count(distinct numProcessoSocorro) from Acciona);

@@ -23,19 +23,18 @@ for i in range(1, 101):
 
 f.write("\n");
 
-for i in range(1, 101):
+for i in range(1, 301):
 	f.write(isrt + "EntidadeMeio(nomeEntidade)" + value + "'Entidade" + str(i) + "'" + end)
 
 f.write("\n");
 
-for i in range(1, 101):
+for i in range(1, 301):
 	f.write(isrt + "Meio(numMeio, nomeMeio, nomeEntidade)" + value + str(i) + ", 'veiculo" + str(i) + "', '" + "Entidade" + str(i) + "'" + end)
 
 f.write("\n");
 
 for i in range(1, 101):
 	f.write(isrt + "Acciona(numMeio, nomeEntidade, numProcessoSocorro)" + value + str(i) + ", 'Entidade" + str(i) + "', " + str(i) + end)
-
 f.write("\n");
 
 for i in range(1, 101):
@@ -68,12 +67,28 @@ for i in range(1, 101):
 
 f.write("\n");
 
-for i in range(1, 101):
-	if(i < 33):
+for i in range(1, 301):
+	if(i < 100):
 		f.write(isrt + "MeioCombate(numMeio, nomeEntidade)" + value + str(i) + ", 'Entidade" + str(i) + "'" + end)
-	elif(i > 66):
+	elif(i > 200):
 		f.write(isrt + "MeioApoio(numMeio, nomeEntidade)" + value + str(i) + ", 'Entidade" + str(i) + "'" + end)
 	else:
 		f.write(isrt + "MeioSocorro(numMeio, nomeEntidade)" + value + str(i) + ", 'Entidade" + str(i) + "'" + end)
 
 f.write("\n");
+
+for i in range(1, 301):
+	if(i > 200):
+		f.write(isrt + "Alocado(numMeio, nomeEntidade, numHoras, numProcessoSocorro)" + value + str(i) + ", 'Entidade" + str(i) + "', " + str(i) + ", " + str(i//3) + end)
+	elif(i >= 100 and i <= 200):
+		f.write(isrt + "Transporta(numMeio, nomeEntidade, numVitimas, numProcessoSocorro)" + value + str(i) + ", 'Entidade" + str(i) + "', " + str(i) + ", " + str(i//3) + end)
+
+f.write("\n");
+
+for i in range(1, 101):
+	f.write(isrt + "Solicita(idCoordenador, dataHoraInicioVideo, numCamara, datahoraInicio, datahoraFim)" + value + str(i) + ", '2015-03-28 20:20:20', " + str(i) + ", '2015-03-28 20:20:20', '2015-04-28 20:20:20'" + end)
+
+#Ultima questao do sql
+for i in range(1, 101):
+	f.write(isrt + "Acciona(numMeio, nomeEntidade, numProcessoSocorro)" + value + "1, 'Entidade1', " + str(i) + end)
+
