@@ -59,7 +59,7 @@ create table Vigia
     (moradaLocal varchar(80) not null,
      numCamara numeric not null,
      constraint pk_Vigia primary key(moradaLocal, numCamara),
-     constraint fk_Vigia_Local foreign key(moradaLocal) references Local(moradaLocal),
+     constraint fk_Vigia_Local foreign key(moradaLocal) references Local(moradaLocal) ON DELETE cascade,
      constraint fk_Vigia_Camara foreign key(numCamara) references Camara(numCamara));
 
 create table ProcessoSocorro
@@ -74,8 +74,8 @@ create table EventoEmergencia
      numProcessoSocorro numeric,
      unique(numTelefone, nomePessoa),
      constraint pk_EventoEmergencia primary key(numTelefone,instanteChamada),
-     constraint fk_EventoEmergencia_Local foreign key(moradaLocal) references Local(moradaLocal),
-     constraint fk_EventoEmergencia_ProcessoSocorro foreign key(numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
+     constraint fk_EventoEmergencia_Local foreign key(moradaLocal) references Local(moradaLocal) on delete cascade,
+     constraint fk_EventoEmergencia_ProcessoSocorro foreign key(numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
 
 create table EntidadeMeio
    (nomeEntidade    varchar(80) not null,
@@ -86,25 +86,25 @@ create table Meio
     nomeMeio    varchar(80) not null,
     nomeEntidade varchar(80)    not null,
     constraint pk_Meio primary key(numMeio, nomeEntidade),
-    constraint fk_Meio_EntidadeMeio foreign key(nomeEntidade) references EntidadeMeio(nomeEntidade));
+    constraint fk_Meio_EntidadeMeio foreign key(nomeEntidade) references EntidadeMeio(nomeEntidade) on delete cascade);
 
 create table MeioCombate
    (numMeio numeric not null,
     nomeEntidade varchar(80) not null,
     constraint pk_MeioCombate primary key(numMeio, nomeEntidade),
-    constraint fk_MeioCombate_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
+    constraint fk_MeioCombate_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade) on delete cascade);
 
 create table MeioApoio
    (numMeio numeric not null,
     nomeEntidade varchar(80) not null,
     constraint pk_MeioApoio primary key(numMeio, nomeEntidade),
-    constraint fk_MeioApoio_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
+    constraint fk_MeioApoio_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade) on delete cascade);
 
 create table MeioSocorro
    (numMeio numeric not null,
     nomeEntidade varchar(80) not null,
     constraint pk_MeioSocorro primary key(numMeio, nomeEntidade),
-    constraint fk_MeioSocorro_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade));
+    constraint fk_MeioSocorro_Meio foreign key(numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade) on delete cascade);
 
 create table Transporta
    (numMeio numeric not null,
@@ -112,8 +112,8 @@ create table Transporta
     numVitimas numeric not null,
     numProcessoSocorro numeric not null,
     constraint pk_Transporta primary key(nomeEntidade, numMeio, numProcessoSocorro),
-    constraint fk_Transporta_MeioSocorro foreign key (numMeio, nomeEntidade) references MeioSocorro(numMeio, nomeEntidade),
-    constraint fk_Transporta_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
+    constraint fk_Transporta_MeioSocorro foreign key (numMeio, nomeEntidade) references MeioSocorro(numMeio, nomeEntidade) on delete cascade,
+    constraint fk_Transporta_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
 
 create table Alocado
     (numMeio numeric not null,
@@ -121,16 +121,16 @@ create table Alocado
     numHoras numeric not null,
     numProcessoSocorro numeric not null,
     constraint pk_Alocado primary key(nomeEntidade, numMeio, numProcessoSocorro),
-    constraint fk_Alocado_MeioApoio foreign key (numMeio, nomeEntidade) references MeioApoio(numMeio, nomeEntidade),
-    constraint fk_Alocado_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
+    constraint fk_Alocado_MeioApoio foreign key (numMeio, nomeEntidade) references MeioApoio(numMeio, nomeEntidade) on delete cascade,
+    constraint fk_Alocado_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
 
 create table Acciona
    (numMeio numeric not null,
     nomeEntidade varchar(80) not null,
     numProcessoSocorro numeric not null,
     constraint pk_Acciona primary key(nomeEntidade, numMeio, numProcessoSocorro),
-    constraint fk_Acciona_Meio foreign key (numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade),
-    constraint fk_Acciona_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
+    constraint fk_Acciona_Meio foreign key (numMeio, nomeEntidade) references Meio(numMeio, nomeEntidade) on delete cascade,
+    constraint fk_Acciona_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
 
 create table Coordenador
    (idCoordenador numeric not null,
@@ -147,7 +147,7 @@ create table Audita
     texto varchar(255) not null,
     constraint pk_Audita primary key(nomeEntidade, numMeio, numProcessoSocorro, idCoordenador),
     constraint fk_Audita_Coordenador foreign key (idCoordenador) references Coordenador(idCoordenador),
-    constraint fk_Audita_Acciona foreign key (nomeEntidade, numMeio, numProcessoSocorro) references Acciona(nomeEntidade, numMeio, numProcessoSocorro));
+    constraint fk_Audita_Acciona foreign key (nomeEntidade, numMeio, numProcessoSocorro) references Acciona(nomeEntidade, numMeio, numProcessoSocorro) on delete cascade);
 
 create table Solicita
    (idCoordenador numeric not null,

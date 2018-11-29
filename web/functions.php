@@ -37,7 +37,7 @@
         foreach ($content as $row) {
             echo("<tr class = 'tableRow " . $table_name . "Row'>");
             $i = 0;
-            while($i < $array_size){
+            while(isset($row[$i])){
                 echo("<td class = 'tableCell " . ($i == $array_size - 1 ? $last_row_id : "") . " " . $table_name . "Cell'>");
                 echo($row[$i]);
                 echo("</td>");

@@ -20,9 +20,9 @@ Select nomeentidade
 
 from EventoEmergencia NATURAL JOIN Acciona
 
-Group by nomeentidade
-
 WHERE instanteChamada BETWEEN '2018-06-21 00:00' AND '2018-09-23 23:59'
+
+Group by nomeentidade
 
 Having count(*) >= all(
 	
@@ -30,10 +30,12 @@ Having count(*) >= all(
 	
 	from EventoEmergencia NATURAL JOIN Acciona
 
+	WHERE instanteChamada BETWEEN '2018-06-21 00:00' AND '2018-09-23 23:59'
+
 	Group by nomeentidade
 
-	WHERE instanteChamada BETWEEN '2018-06-21 00:00' AND '2018-09-23 23:59'
 );
+
 
 
 --3.
@@ -46,7 +48,7 @@ WHERE instanteChamada BETWEEN '2018-01-01 00:00' AND '2018-12-31 23:59'
 			SELECT numProcessoSocorro, numMeio, nomeEntidade
 			FROM Audita
 		)
-		AND a.numProcessoSocorro = e.numProcessoSocorro
+		AND a.numProcessoSocorro = e.numProcessoSocorro;
 
 --4.
 
@@ -55,7 +57,7 @@ FROM SegmentoVideo NATURAL JOIN video NATURAL JOIN vigia
 WHERE duracao > '00:01:00' 
 	AND moradaLocal LIKE 'Monchique'
 	AND dataHoraInicio BETWEEN '2018-08-01 00:00:00' AND '2018-08-31 23:59:00'
-	AND dataHoraFim BETWEEN '2018-08-01 00:00:00' AND '2018-08-31 23:59:00'
+	AND dataHoraFim BETWEEN '2018-08-01 00:00:00' AND '2018-08-31 23:59:00';
 
 --5.
 
@@ -64,7 +66,7 @@ FROM MeioCombate
 WHERE (numMeio, nomeEntidade) NOT IN (
 	SELECT numMeio, nomeEntidade
 	FROM alocado
-	)
+	);
 
 --6.
 
@@ -76,4 +78,5 @@ From (
 	
 Group by nomeentidade
 
-Having count(nomeentidade) >= (Select count(numProcessoSocorro) from ProcessoSocorro);
+Having count(nomeentidade) >= (
+	Select count(numProcessoSocorro) from ProcessoSocorro);
