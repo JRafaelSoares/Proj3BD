@@ -81,6 +81,7 @@
                 array_unshift($result, [$add]);
 
                 printTable($column_names, $result);
+
                 
                 $db = null;
             }
@@ -90,5 +91,10 @@
             }
             
         ?>
+
+        <form method = 'post' action = 'index.html'>
+            <input type='submit' class = 'homeButton' value = "Home">
+        </form>
+
     </body>
 </html>

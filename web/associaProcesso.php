@@ -53,8 +53,6 @@
                     $sql = substr($sql, 0, -1);
                     $sql .= ");";
 
-                    echo($sql);
-
                     $result = $db->prepare($sql);
 
                     $result->execute();
@@ -133,5 +131,10 @@
                 echo("<p>ERROR: {$e->getMessage()}</p>");
             }
         ?>
+
+        <form method = 'post' action = 'index.html'>
+            <input type='submit' class = 'homeButton' value = "Home">
+        </form>
+
     </body>
 </html>

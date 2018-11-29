@@ -129,3 +129,18 @@
 .confirmButtonAssocia:hover {
 	background-color: white;
 }
+
+.homeButton {
+	background-color: #adadad;
+
+	border: none;
+
+	position: fixed;
+
+	right: 10px;
+	top: 10px;
+}
+
+.homeButton:hover {
+	background-color: white;
+}
