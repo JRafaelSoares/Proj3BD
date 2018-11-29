@@ -21,46 +21,44 @@
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-                $type1 = "ProcessoSocorro";
-                $type2 = "Meio";
+                $type1 = "EventoEmergencia";
+                $type2 = "ProcessoSocorro";
 
-
-                $columnNum1 = count($tables[$type1]);
-                $columnNum2 = count($tables[$type2]);
-
-                $type = "Acciona";
-                $typeColumns = "(numMeio, nomeEntidade, numProcessoSocorro)";
+                $columnNum1 = count($primaryKeys[$type1]);
+                $columnNum2 = count($primaryKeys[$type2]);
 
                 if(isset($_POST[$type1 . 'Select']) && isset($_POST[$type2 . 'Select'])){
-                    $sql = "INSERT INTO " . $type . $typeColumns . " VALUES(";
+
+                    $sql = "UPDATE " . $type1 . " SET ";
+
+                    $where = " WHERE ";
 
                     $valuesType1 = explode(",", $_POST[$type1 . 'Select']);
                     $valuesType2 = explode(",", $_POST[$type2 . 'Select']);
 
-                    $columnNumType = count($tables[$type]);
+                    foreach($primaryKeys[$type1] as $column){
 
-                    foreach($tables[$type] as $column){
-
-                        if(($key = array_search($column, $tables[$type1])) !== FALSE){
-                            $sql .= toCorrectType($column, $valuesType1[$key]) . ",";
+                        if(($key = array_search($column, $primaryKeys[$type2])) !== FALSE){
+                            $sql .= $primaryKeys[$type2][$key] . " = " . toCorrectType($column, $valuesType2[$key]) . " ";
                         }
-                        elseif(($key = array_search($column, $tables[$type2])) !== FALSE){
-                            $sql .= toCorrectType($column, $valuesType2[$key]) . ",";
+                        elseif(($key = array_search($column, $primaryKeys[$type1])) !== FALSE){
+                            $where .=  $primaryKeys[$type1][$key] . " = " . toCorrectType($column, $valuesType1[$key]) . " AND ";
                         }
 
                     }
 
-                    $sql = substr($sql, 0, -1);
-                    $sql .= ");";
-
-                    echo($sql);
+                    $sql .= substr($where, 0, -5) . ";";
 
                     $result = $db->prepare($sql);
 
                     $result->execute();
+
+                    header('Location: http://$_SERVER[HTTP_HOST]/index.html');
+
                 }
                 
-                $sql1 = "SELECT * FROM " . $type1 . ";";
+                $sql1 = "SELECT * FROM " . $type1 . " WHERE numProcessoSocorro IS NULL;";
+
                 $sql2 = "SELECT * FROM " . $type2 . ";";
 
 
@@ -99,7 +97,7 @@
                         $value .= $row[$i] . ",";
                     }
 
-                    array_push($result1[$key], sprintf($selectionType1, substr($value, 0, -1)));
+                    array_push($result1[$key], sprintf($selectionType1, substr($value, 0, -2)));
                 }
 
                 array_push($tables[$type1], "");
