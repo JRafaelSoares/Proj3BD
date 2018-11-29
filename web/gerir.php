@@ -7,8 +7,10 @@
     <body>
         <?php
             include "functions.php";
+
             $type = $_REQUEST['type'];
             $column_names = $tables[$type];
+            
             if(in_array($type, $EditPermissions))
                 array_push($column_names, "Remove", "Edit");
             else
@@ -17,8 +19,6 @@
             try
             {
                 $host = "db.ist.utl.pt";
-                $user ="ist187666";
-                $password = "joana0101";
                 $dbname = $user;
                 
                 $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
