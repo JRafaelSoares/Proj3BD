@@ -45,7 +45,10 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>Erro ao remover linha seleccionada</p>");
+                //echo("<p>Erro ao remover linha seleccionada</p>");
+                if($type == 'Local' || $type == 'ProcessoSocorro'){
+                    echo("<p> Erro de Referências. Remova os Eventos de Emergencia cujo " . $primaryKeys[$type][0] . " seja " . $pk[0] . " para apagar este " .$type . "</p>");
+                }
             }
         ?>
 
