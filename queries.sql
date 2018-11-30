@@ -6,9 +6,9 @@ from acciona
 
 group by numProcessoSocorro
 
-having count(*) >= all(
+having count( distinct (numMeio, nomeEntidade) ) >= all(
 
-	select count(*)
+	select count( distinct (numMeio, nomeEntidade) )
 	from acciona
 	group by numProcessoSocorro
 
@@ -80,3 +80,11 @@ Group by nomeentidade
 
 Having count(nomeentidade) >= (
 	Select count(distinct numProcessoSocorro) from Acciona);
+
+
+--Resultado 1: 3
+--Resultado 2: A
+--Resultado 3: 1
+--Resultado 4: 2
+--Resultado 5: Meios 1-100
+--Resultado 6: Entidade 1
