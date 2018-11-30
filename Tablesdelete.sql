@@ -66,6 +66,7 @@ create table ProcessoSocorro
    (numProcessoSocorro numeric  not null,
     constraint pk_ProcessoSocorro primary key(numProcessoSocorro));
 
+--Tirar on cascade de local e processo Socorro
 create table EventoEmergencia
     (numTelefone numeric(9) not null,
      instanteChamada timestamp not null,
@@ -74,8 +75,8 @@ create table EventoEmergencia
      numProcessoSocorro numeric,
      unique(numTelefone, nomePessoa),
      constraint pk_EventoEmergencia primary key(numTelefone,instanteChamada),
-     constraint fk_EventoEmergencia_Local foreign key(moradaLocal) references Local(moradaLocal) on delete cascade,
-     constraint fk_EventoEmergencia_ProcessoSocorro foreign key(numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
+     constraint fk_EventoEmergencia_Local foreign key(moradaLocal) references Local(moradaLocal),
+     constraint fk_EventoEmergencia_ProcessoSocorro foreign key(numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro));
 
 create table EntidadeMeio
    (nomeEntidade    varchar(80) not null,
