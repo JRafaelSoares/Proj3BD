@@ -1,8 +1,15 @@
 <html>
+
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
     <body>
         <?php
             $type = $_REQUEST['type'];
-            $pk = eval("return " . $_REQUEST['pk'] . ";");
+
+            $pk = explode(",", $_REQUEST['pk']);
+
             include "functions.php";
 
             try

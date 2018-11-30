@@ -4,8 +4,17 @@
     </head>
     <body>
         <?php
-            $type = $_REQUEST['type'];
-            $pk = eval("return " . $_REQUEST['pk'] . ";");
+            $type = "Meio";
+
+            //$mainType = "Meio";
+
+            $pk = explode(",", $_REQUEST['pk']);
+
+            /*echo("<p>");
+            echo(var_dump($pk));
+            echo("</p>");*/
+
+            //$pk = eval("return " . $_REQUEST['pk'] . ";");
 
             include "functions.php";
 
@@ -20,37 +29,46 @@
                 //Quando faz submit
                 if(isset($_POST['submit'])){
                     $sql = "UPDATE " . $type . " SET ";
-                    $Where = " WHERE ";
-                    for($i = 0; $i < count($primaryKeys[$type]); $i++){
-                        $sql .= $primaryKeys[$type][$i] . " = " . toCorrectType($tables[$type][$i], $_POST[str_replace(' ', '', $tables[$type][$i])]);
-                        $Where .= $primaryKeys[$type][$i] . " = " . toCorrectType($primaryKeys[$type][$i], $pk[$i]);
-                        if($i < count($primaryKeys[$type]) - 1){
-                            $sql .= ", ";
-                            $Where .= " AND ";
+
+                    $sql .= $primaryKeys[$type][0] . " = " . $pk[0] . ", ";
+                    $sql .= $primaryKeys[$type][1] . " = '" . $_POST[$primaryKeys[$type][1]] . "', ";
+                    $sql .= $primaryKeys[$type][2] . " = '" . $pk[2] . "' ";
+
+                    $where = " WHERE ";
+
+                    $columns = count($primaryKeys[$type]);
+
+                    for($i = 0; $i < $columns; $i++){
+                        $where .= $primaryKeys[$type][$i] . " = " . toCorrectType($primaryKeys[$type][$i], $pk[$i]);
+
+                        if($i < $columns - 1){
+                            $where .= " AND ";
                         }
                     }
 
-                    $sql .= $Where . ";";
-                    echo($sql);
+                    $sql .= $where . ";";
+
+                    //echo($sql);
+
                     $result = $db->prepare($sql);
                     $result->execute();
+
                     $newURL = $_REQUEST['url'];
                     header('Location: ' . $newURL);
                 }
 
                 $content = [];
-                $elements = [];
-                echo("<form method ='post' action=''>");
-                for($i = 0; $i < count($tables[$type]); $i++){
-                    array_push($elements,'
-                                    <p><input type="text" name="' . str_replace(' ', '', $tables[$type][$i]) . '"/
-                                    value="' . str_replace(' ', '', $pk[$i]) . '"/></p>
-                                ');
-                }
-                array_push($content, $elements);
-                printTable($tables[$type], $content);
+
+                echo("<form method = 'post'>");
+
+                array_push($content, ['
+                    <input type = "text" name = "nomemeio" value = "' . $pk[1] . '"/>
+                ']);
+
+                printTable(["Nome do Meio"], $content);
+
                 echo('
-                        <p><input type="submit" name ="submit" class = "SimpleButton" value="Insert"/></p>
+                        <input type="submit" name ="submit" class = "SimpleButton" value="Confirm Edit"/>
                     </form>');
                 
                 $db = null;

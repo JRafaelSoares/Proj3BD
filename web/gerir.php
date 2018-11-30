@@ -6,11 +6,14 @@
 
     <body>
         <?php
+
             include "functions.php";
 
             $type = $_REQUEST['type'];
             $column_names = $tables[$type];
-            
+
+            $numColumns = count($column_names);
+
             if(in_array($type, $EditPermissions))
                 array_push($column_names, "Remove", "Edit");
             else
@@ -24,7 +27,31 @@
                 $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 
-                $sql = "SELECT * FROM " . $type . ";";
+                $sql = "SELECT ";
+
+                if($type == "MeioCombate" || $type == "MeioSocorro" || $type == "MeioApoio"){
+
+                    $sql .= implode(",", $primaryKeys["Meio"]);
+                    $sql .= " FROM " . $type . " NATURAL JOIN Meio";
+
+                    $column_names = $tables["Meio"];
+
+                    $numColumns = count($column_names);
+
+                    if(in_array($type, $EditPermissions))
+                        array_push($column_names, "Remove", "Edit");
+                    else
+                        array_push($column_names, "Remove");
+
+                    $type = "Meio";
+                }
+                else{
+                    $sql .= implode(",", $primaryKeys[$type]);
+                    $sql .= " FROM " . $type;
+                }
+
+                $sql .= ";";
+
 
                 $result = $db->prepare($sql);
                 $result->execute();
@@ -40,6 +67,7 @@
                         <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
+
                 $edit = "
                 <div class = 'MenuButton EditButton'>
                     <form class = 'form' action = 'edit.php'>
@@ -49,10 +77,11 @@
                         <input type = 'hidden' name = 'url' value = 'http://%s%s'>
                     </form>
                 </div>";
+
                 $add = "
                 <div class = 'MenuButton AddButton'>
                     <form class = 'form' action = 'insert.php'>
-                        <input class = 'GerirButton' class = 'MenuButton' type = 'submit' value = 'Insert new row'>
+                        <input class = 'GerirButton' class = 'MenuButton' type = 'submit' value = 'Insert New Row'>
                         <input type = 'hidden' name = 'type' value = '" . $type . "'>
                         <input type = 'hidden' name = 'url' value = 'http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]'>
                     </form> 
@@ -60,20 +89,21 @@
                 
                 foreach($result as $key => $row){
 
-                    $values = "['";
+                    $values = "";
 
-                    for($i = 0; $i < count($primaryKeys[$type]); $i++){
-                        if($i == count($primaryKeys[$type]) - 1){
-                            $values .= $row[$primaryKeys[$type][$i]] . "'";
+                    for($i = 0; $i < $numColumns; $i++){
+
+                        if($i == $numColumns - 1){
+                            $values .= $row[$i];
                             break;
                         }
-                        $values .= $row[$primaryKeys[$type][$i]] . "', '";
+
+                        $values .= $row[$i] . ",";
                     }
-                    
-                    $values .= "]";
 
                     $removeWithValues = sprintf($remove, $values, $_SERVER[HTTP_HOST], $_SERVER[REQUEST_URI]);
                     $editWithValues = sprintf($edit, $values, $_SERVER[HTTP_HOST], $_SERVER[REQUEST_URI]);
+
                     array_push($result[$key], $removeWithValues);
                     array_push($result[$key], $editWithValues);
                 }
@@ -87,7 +117,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>Erro ao </p>");
+                echo("<p>Erro ao obter a tabela</p>");
             }
             
         ?>

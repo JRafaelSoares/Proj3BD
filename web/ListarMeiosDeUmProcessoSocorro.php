@@ -6,7 +6,9 @@
         <?php
             
             include "functions.php";
+            
             $ListOfAssociation = ["ProcessoSocorro", "Acciona", "Meio"];
+
             try{
                 $host = "db.ist.utl.pt";
                 

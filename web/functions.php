@@ -3,8 +3,8 @@
 <?php
 
 
-    $user ="ist187675";
-    $password = "ubaa8482";
+    $user ="ist187696";
+    $password = "bvsl7219";
 
     $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada', 'nomepessoa', 'moradalocal', 'numprocessosocorro'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomemeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade'], 'MeioCombate' => ['nummeio', 'nomeentidade'], 'MeioApoio' => ['nummeio', 'nomeentidade'], 'MeioSocorro' => ['nummeio', 'nomeentidade']];
 
@@ -19,6 +19,7 @@
             'MeioApoio' => ['Numero do Meio', 'Nome da Entidade'],
             'Acciona' => ['Numero do Meio', 'Nome da Entidade', 'Numero do Processo de Socorro']
         ];
+        
     $EditPermissions = ['MeioCombate', 'MeioApoio', 'MeioSocorro'];
     $ElementsTypeInt = ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'];
     
