@@ -57,7 +57,7 @@
         if($value === "" || $value === NULL){
             return "null";
         }
-        
+
         if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'])){
             return $value;
         }
@@ -67,7 +67,7 @@
     }
 
     function toCompare($nameColumn){
-        if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'])){
+        if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'Instante de Chamada', 'numtelefone', 'numprocessosocorro', 'nummeio', 'instantechamada'])){
             return " = ";
         }
         else{

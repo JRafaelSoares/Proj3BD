@@ -38,7 +38,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erro ao remover linha seleccionada</p>");
             }
         ?>
 
