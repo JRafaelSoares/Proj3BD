@@ -66,7 +66,11 @@
         }
     }
 
-    function toCompare($nameColumn){
+    function toCompare($nameColumn, $value){
+        if($value = NULL){
+            return " IS ";
+        }
+
         if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'Instante de Chamada', 'numtelefone', 'numprocessosocorro', 'nummeio', 'instantechamada'])){
             return " = ";
         }

@@ -21,7 +21,7 @@
                     if($i != 0) {
                         $sql = $sql . " AND ";
                     }
-                    $sql .= $key . toCompare($key) . toCorrectType($key, $pk[$i]);
+                    $sql .= $key . toCompare($key, $pk[$i]) . toCorrectType($key, $pk[$i]);
             		
             	    $i = $i + 1;
                 }
