@@ -72,13 +72,11 @@ WHERE (numMeio, nomeEntidade) NOT IN (
 
 Select nomeentidade
 
-From (
-	Select distinct numProcessoSocorro, nomeentidade
-	From acciona NATURAL JOIN MeioCombate) as y
+From acciona NATURAL JOIN MeioCombate
 	
 Group by nomeentidade
 
-Having count(nomeentidade) >= (
+Having count(distinct numProcessoSocorro) = (
 	Select count(distinct numProcessoSocorro) from Acciona);
 
 
