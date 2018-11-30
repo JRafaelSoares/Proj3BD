@@ -65,7 +65,7 @@ SELECT *
 FROM MeioCombate
 WHERE (numMeio, nomeEntidade) NOT IN (
 	SELECT numMeio, nomeEntidade
-	FROM alocado
+	FROM MeioApoio
 	);
 
 --6.
