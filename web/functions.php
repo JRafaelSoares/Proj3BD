@@ -3,8 +3,8 @@
 <?php
 
 
-    $user ="ist187696";
-    $password = "bvsl7219";
+    $user ="ist187675";
+    $password = "ubaa8482";
 
     $primaryKeys = ['Local' => ['moradalocal'], 'EventoEmergencia' => ['numtelefone', 'instantechamada', 'nomepessoa', 'moradalocal', 'numprocessosocorro'], 'ProcessoSocorro' => ['numprocessosocorro'], 'Meio' => ['nummeio', 'nomemeio', 'nomeentidade'], 'EntidadeMeio' => ['nomeentidade'], 'MeioCombate' => ['nummeio', 'nomeentidade'], 'MeioApoio' => ['nummeio', 'nomeentidade'], 'MeioSocorro' => ['nummeio', 'nomeentidade']];
 
@@ -12,7 +12,7 @@
             'Local' => ['Morada do Local'],
             'EventoEmergencia' => ['Numero de Telefone', 'Instante de Chamada', 'Nome da Pessoa', 'Morada do Local', 'Numero do Processo de Socorro'],
             'ProcessoSocorro' => ['Numero do Processo de Socorro'],
-            'EntidadeMeio' => ['Morada do Local'],
+            'EntidadeMeio' => ['Nome da Entidade'],
             'Meio' => ['Numero do Meio', 'Nome do Meio', 'Nome da Entidade'],
             'MeioCombate' => ['Numero do Meio', 'Nome da Entidade'],
             'MeioSocorro' => ['Numero do Meio', 'Nome da Entidade'],
@@ -54,7 +54,7 @@
     }
 
     function toCorrectType($nameColumn, $value){
-        if($value === "" || $value === NULL){
+        if($value === "" || $value == null){
             return "null";
         }
 
@@ -67,7 +67,7 @@
     }
 
     function toCompare($nameColumn, $value){
-        if($value = NULL){
+        if($value == null){
             return " IS ";
         }
 
