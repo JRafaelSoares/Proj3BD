@@ -43,7 +43,6 @@
                     else
                         array_push($column_names, "Remove");
 
-                    $type = "Meio";
                 }
                 else{
                     $sql .= implode(",", $primaryKeys[$type]);
