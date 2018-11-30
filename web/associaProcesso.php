@@ -126,7 +126,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erro ao associar Processo de Socorro ao Meio</p>");
             }
         ?>
 

@@ -57,7 +57,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erro ao alterar a linha pedida</p>");
             }
         ?>
 

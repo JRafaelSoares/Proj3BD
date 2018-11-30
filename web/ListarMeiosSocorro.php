@@ -102,7 +102,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erros ao mostrar os meios no processo selecionado</p>");
             }
         ?>
 

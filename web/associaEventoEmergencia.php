@@ -37,10 +37,10 @@
                     foreach($primaryKeys[$type1] as $column){
 
                         if(($key = array_search($column, $primaryKeys[$type2])) !== FALSE){
-                            $sql .= $primaryKeys[$type2][$key] . " = " . toCorrectType($column, $valuesType2[$key]) . " ";
+                            $sql .= $primaryKeys[$type2][$key] . toCompare($column) . toCorrectType($column, $valuesType2[$key]) . " ";
                         }
                         elseif(($key = array_search($column, $primaryKeys[$type1])) !== FALSE){
-                            $where .=  $primaryKeys[$type1][$key] . " = " . toCorrectType($column, $valuesType1[$key]) . " AND ";
+                            $where .=  $primaryKeys[$type1][$key] . toCompare($column) . toCorrectType($column, $valuesType1[$key]) . " AND ";
                         }
 
                     }
@@ -50,8 +50,6 @@
                     $result = $db->prepare($sql);
 
                     $result->execute();
-
-                    header('Location: http://' . $_SERVER[HTTP_HOST] . '/index.html');
 
                 }
                 
@@ -126,7 +124,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erro ao associar Processo de Socorro ao Evento de Emergencia</p>");
             }
         ?>
 

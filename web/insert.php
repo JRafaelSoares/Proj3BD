@@ -53,7 +53,7 @@
             }
             catch (PDOException $e)
             {
-                echo("<p>ERROR: {$e->getMessage()}</p>");
+                echo("<p>Erro ao inserir valores na tabela</p>");
             }
         ?>
 

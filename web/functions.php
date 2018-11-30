@@ -54,6 +54,10 @@
     }
 
     function toCorrectType($nameColumn, $value){
+        if($value === "" || $value === NULL){
+            return "null";
+        }
+        
         if(in_array($nameColumn, ['Numero de Telefone', 'Numero do Processo de Socorro', 'Numero do Meio', 'numtelefone', 'numprocessosocorro', 'nummeio'])){
             return $value;
         }

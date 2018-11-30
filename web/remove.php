@@ -41,5 +41,9 @@
                 echo("<p>ERROR: {$e->getMessage()}</p>");
             }
         ?>
+
+        <form method = 'post' action = 'index.html'>
+            <input type='submit' class = 'homeButton' value = "Home">
+        </form>
     </body>
 </html>
