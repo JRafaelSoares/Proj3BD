@@ -158,3 +158,38 @@ create table Solicita
     constraint pk_Solicita primary key(idCoordenador, dataHoraInicioVideo, numCamara),
     constraint fk_Solicita_Coordenador foreign key (idCoordenador) references Coordenador(idCoordenador),
     constraint fk_Solicita_Video foreign key (dataHoraInicioVideo, numCamara) references Video(dataHoraInicio, numCamara));
+
+create or replace function check_solicita() returns trigger as $$
+    begin
+        if not exists(
+                select *
+                from Audita natural join EventoEmergencia natural join Vigia
+                where idCoordenador = new.idCoordenador and numCamara = new.numCamara
+        ) then 
+            raise exception 'Um coordenador apenas pode solicitar videos de camaras colocadas num local cujo accionamento de meios esteja a ser (ou tenha side) auditado por ele proprio.';
+        end if;
+        return new;
+    end
+$$ language plpgsql;
+
+create trigger check_solicita_constraint before insert or update on Solicita
+    for each row execute procedure check_solicita();
+
+create or replace function check_acciona() returns trigger as $$
+    begin
+        if not exists(
+                select *
+                from Acciona
+                where numMeio = new.numMeio and nomeEntidade = new.nomeEntidade and numProcessoSocorro = new.numProcessoSocorro
+        ) then 
+            raise exception 'Um Meio de Apoio só pode ser alocado a Processos de Socorro para os quais tenha sido accionado.';
+        end if;
+        return new;
+    end
+$$ language plpgsql;
+
+create trigger check_alocado_acciona_constraint before insert or update on Alocado
+    for each row execute procedure check_acciona();
+
+create index video_idx on video using hash(numCamara);
+create index vigia_idx on vigia using hash(moradaLocal);
