@@ -36,3 +36,21 @@ create table facts
 	 constraint fk_facts_d_meio foreign key(idMeio) references d_meio(idMeio),
 	 constraint fk_facts_d_tempo foreign key(dia, mes, ano) references d_tempo(dia, mes, ano));
 
+
+create or replace function get_dates() returns void as $$
+	DECLARE
+		min_date date;
+		max_date date;
+	BEGIN
+		Select min(instanteChamada)::timestamp::date into min_date
+		From EventoEmergencia;
+
+		Select max(instanteChamada)::timestamp::date into max_date
+		From EventoEmergencia;
+
+		WHILE min_date <= max_date LOOP
+		INSERT INTO d_tempo VALUES (EXTRACT(DAY FROM min_date), EXTRACT(MONTH FROM min_date), EXTRACT(YEAR FROM min_date));
+		min_date := min_date + interval '1 day';
+		END LOOP;
+	END;
+$$ LANGUAGE plpgsql;

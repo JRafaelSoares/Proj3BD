@@ -15,12 +15,7 @@ INSERT INTO d_meio(numMeio, nomeEntidade, nomeMeio, tipo)
 SELECT *, 'MeioSocorro' 
 FROM Meio NATURAL JOIN MeioSocorro;
 
-INSERT INTO d_tempo
-SELECT DISTINCT
-	EXTRACT(DAY FROM instanteChamada),
-	EXTRACT(MONTH FROM instanteChamada),
-	EXTRACT(YEAR FROM instanteChamada)
-FROM d_evento;
+SELECT get_dates();
 
 INSERT INTO facts
 SELECT
