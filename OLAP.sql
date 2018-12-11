@@ -1,16 +1,15 @@
 
-Select count(tipo), ano, mes
+Select ano, mes, tipo, count(tipo)
 From facts NATURAL JOIN d_meio
+Where idEvento = 15
 Group by tipo, ano, mes
 UNION
-Select count(tipo), ano, null
+Select ano, null, tipo, count(tipo)
 From facts NATURAL JOIN d_meio
+Where idEvento = 15
 Group by tipo, ano, mes
 UNION 
-#Select count(tipo), null, mes
-#From facts NATURAL JOIN d_meio
-#Group by tipo, ano, mes
-#UNION
-Select count(tipo), null, null
+Select null, null, tipo, count(tipo)
 From facts NATURAL JOIN d_meio
+Where idEvento = 15
 Group by tipo, ano, mes;
