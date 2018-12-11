@@ -4,14 +4,15 @@ drop table d_tempo cascade;
 drop table facts cascade;
 
 create table d_evento
-	(idEvento serial,
+	(idEvento serial not null,
 	 numTelefone numeric(9) not null check(numTelefone > 0),
 	 instanteChamada timestamp not null,
+	 unique(numTelefone, instanteChamada),
 	 constraint pk_d_evento primary key(idEvento));
 
 #There can be Meios without type
 create table d_meio
-	(idMeio serial,
+	(idMeio serial not null,
 	 numMeio numeric not null check(numMeio > 0),
 	 nomeMeio varchar(80) not null,
 	 nomeEntidade varchar(80) not null,
@@ -38,8 +39,8 @@ create table d_tempo
 
 #Is this rly the facts?!
 create table facts
-	(idEvento numeric not null,
-	 idMeio numeric not null,
+	(idEvento serial,
+	 idMeio serial,
 	 dia numeric(2) not null,
 	 mes numeric(2) not null,
 	 ano numeric(4) not null,
