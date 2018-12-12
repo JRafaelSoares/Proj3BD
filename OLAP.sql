@@ -1,4 +1,3 @@
-
 Select ano, mes, tipo, count(tipo)
 From facts NATURAL JOIN d_meio NATURAL JOIN d_tempo
 Where idEvento = 15
