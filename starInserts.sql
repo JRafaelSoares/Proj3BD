@@ -2,7 +2,6 @@ INSERT INTO d_evento(numTelefone, instanteChamada)
 SELECT numTelefone, instanteChamada
 FROM EventoEmergencia;
 
-
 INSERT INTO d_meio(numMeio, nomeEntidade, nomeMeio, tipo)
 SELECT *, 'MeioCombate' 
 FROM Meio NATURAL JOIN MeioCombate;
