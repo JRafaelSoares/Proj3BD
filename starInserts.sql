@@ -19,8 +19,8 @@ SELECT get_dates();
 
 INSERT INTO facts
 SELECT
-	idEvento, idMeio, EXTRACT(DAY FROM instanteChamada), EXTRACT(MONTH FROM instanteChamada), EXTRACT(YEAR FROM instanteChamada)
-FROM EventoEmergencia NATURAL JOIN Acciona NATURAL JOIN d_evento NATURAL JOIN d_meio;
-
-
-
+	idEvento, idMeio, idTempo
+FROM EventoEmergencia NATURAL JOIN Acciona NATURAL JOIN d_evento NATURAL JOIN d_meio NATURAL JOIN d_tempo
+Where EXTRACT(DAY FROM instanteChamada) = dia and
+	EXTRACT(MONTH FROM instanteChamada) = mes and
+	EXTRACT(YEAR FROM instanteChamada) = ano;

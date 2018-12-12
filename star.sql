@@ -19,22 +19,21 @@ create table d_meio
 	 constraint pk_d_meio primary key(idMeio));
 
 create table d_tempo
-	(dia numeric(2) not null,
+	(idTempo serial not null,
+	 dia numeric(2) not null,
 	 mes numeric(2) not null,
 	 ano numeric(4) not null,
-	 constraint pk_d_tempo primary key(dia, mes, ano));
+	 constraint pk_d_tempo primary key(idTempo));
 
 
 create table facts
 	(idEvento serial,
 	 idMeio serial,
-	 dia numeric(2) not null,
-	 mes numeric(2) not null,
-	 ano numeric(4) not null,
-	 constraint pk_facts primary key(idEvento, idMeio, dia, mes, ano),
+	 idTempo serial,
+	 constraint pk_facts primary key(idEvento, idMeio, idTempo),
 	 constraint fk_facts_d_evento foreign key(idEvento) references d_evento(idEvento),
 	 constraint fk_facts_d_meio foreign key(idMeio) references d_meio(idMeio),
-	 constraint fk_facts_d_tempo foreign key(dia, mes, ano) references d_tempo(dia, mes, ano));
+	 constraint fk_facts_d_tempo foreign key(idTempo) references d_tempo(idTempo));
 
 
 create or replace function get_dates() returns void as $$
@@ -49,7 +48,7 @@ create or replace function get_dates() returns void as $$
 		From EventoEmergencia;
 
 		WHILE min_date <= max_date LOOP
-		INSERT INTO d_tempo VALUES (EXTRACT(DAY FROM min_date), EXTRACT(MONTH FROM min_date), EXTRACT(YEAR FROM min_date));
+		INSERT INTO d_tempo(dia, mes, ano) VALUES (EXTRACT(DAY FROM min_date), EXTRACT(MONTH FROM min_date), EXTRACT(YEAR FROM min_date));
 		min_date := min_date + interval '1 day';
 		END LOOP;
 	END;
