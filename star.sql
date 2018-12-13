@@ -5,14 +5,13 @@ drop table facts cascade;
 
 create table d_evento
 	(idEvento serial not null,
-	 numTelefone numeric(9) not null check(numTelefone > 0),
+	 numTelefone numeric(9) not null,
 	 instanteChamada timestamp not null,
-	 unique(numTelefone, instanteChamada),
 	 constraint pk_d_evento primary key(idEvento));
 
 create table d_meio
 	(idMeio serial not null,
-	 numMeio numeric not null check(numMeio >= 0),
+	 numMeio numeric not null,
 	 nomeMeio varchar(80) not null,
 	 nomeEntidade varchar(80) not null,
 	 tipo varchar(80),
@@ -23,6 +22,7 @@ create table d_tempo
 	 dia numeric(2) not null,
 	 mes numeric(2) not null,
 	 ano numeric(4) not null,
+	 unique(dia, mes, ano),
 	 constraint pk_d_tempo primary key(idTempo));
 
 
