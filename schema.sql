@@ -40,7 +40,7 @@ create table Video
     (dataHoraInicio timestamp not null,
      dataHoraFim timestamp not null check(dataHoraFim > dataHoraInicio),
      numCamara numeric not null,
-     constraint pk_Video primary key(dataHoraInicio, numCamara),
+     constraint pk_Video primary key(numCamara, dataHoraInicio),
      constraint fk_Video_Camara foreign key(numCamara) references Camara(numCamara));
 
 create table SegmentoVideo
@@ -58,7 +58,7 @@ create table Local
 create table Vigia
     (moradaLocal varchar(80) not null,
      numCamara numeric not null,
-     constraint pk_Vigia primary key(moradaLocal, numCamara),
+     constraint pk_Vigia primary key(numCamara, moradaLocal),
      constraint fk_Vigia_Local foreign key(moradaLocal) references Local(moradaLocal) ON DELETE cascade,
      constraint fk_Vigia_Camara foreign key(numCamara) references Camara(numCamara));
 
@@ -111,7 +111,7 @@ create table Transporta
     nomeEntidade varchar(80) not null,
     numVitimas numeric not null check(numVitimas >= 0),
     numProcessoSocorro numeric not null,
-    constraint pk_Transporta primary key(nomeEntidade, numMeio, numProcessoSocorro),
+    constraint pk_Transporta primary key(numProcessoSocorro, nomeEntidade, numMeio),
     constraint fk_Transporta_MeioSocorro foreign key (numMeio, nomeEntidade) references MeioSocorro(numMeio, nomeEntidade) on delete cascade,
     constraint fk_Transporta_ProcessoSocorro foreign key (numProcessoSocorro) references ProcessoSocorro(numProcessoSocorro) on delete cascade);
 
@@ -191,21 +191,12 @@ $$ language plpgsql;
 create trigger check_alocado_acciona_constraint before insert or update on Alocado
     for each row execute procedure check_acciona();
 
-alter table Video drop constraint pk_Video;
-alter table Video add primary key(numCamara, dataHoraInicio);
+create index video_primary_idx on Video using hash(numCamara);
 
-create index video_primary_idx on Video using hash(numCamara, dataHoraInicio);
-
-alter table Vigia drop constraint pk_Vigia;
-alter table Vigia add primary key(numCamara, moradaLocal);
-
-create index vigia_primary_idx on Vigia using hash(numCamara, moradaLocal);
+create index vigia_primary_idx on Vigia using hash(numCamara);
 create index vigia_secondary_idx on Vigia using hash(moradaLocal);
 
-alter table Transporta drop constraint pk_Transporta;
-alter table Transporta add primary key(numProcessoSocorro, nomeEntidade, numMeio);
+create index transporta_primary_idx on Transporta using hash(numProcessoSocorro);
 
-create index transporta_primary_idx on Transporta using hash(numProcessoSocorro, nomeEntidade, numMeio);
-
-create index eventoEmergencia_primary_idx on EventoEmergencia using hash(numTelefone, instanteChamada);
+create index eventoEmergencia_primary_idx on EventoEmergencia(numTelefone, instanteChamada);
 create index eventoEmergencia_secondary_idx on EventoEmergencia using hash(numProcessoSocorro);
