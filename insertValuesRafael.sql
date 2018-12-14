@@ -49,6 +49,7 @@ INSERT INTO Meio VALUES(6, 'Helicoptero', 'Forca Aerea');
 INSERT INTO Meio VALUES(7, 'helicoptero', 'Forca Aerea');
 INSERT INTO Meio VALUES(8, 'helicoptero', 'Forca Aerea');
 INSERT INTO Meio VALUES(9, 'helicoptero', 'Forca Aerea');
+INSERT INTO Meio VALUES(10, 'helicoptero', 'Forca Aerea');
 
 --- numMeio --- nomeEntidade
 INSERT INTO MeioSocorro VALUES(1, 'Hospital');
