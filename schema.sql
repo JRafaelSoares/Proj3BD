@@ -191,12 +191,21 @@ $$ language plpgsql;
 create trigger check_alocado_acciona_constraint before insert or update on Alocado
     for each row execute procedure check_acciona();
 
-create index video_primary_idx on Video using hash(numCamara);
+alter table Video drop constraint pk_Video;
+alter table Video add primary key(numCamara, dataHoraInicio);
 
-create index vigia_primary_idx on Vigia using hash(numCamara);
+create index video_primary_idx on Video using hash(numCamara, dataHoraInicio);
+
+alter table Vigia drop constraint pk_Vigia;
+alter table Vigia add primary key(numCamara, moradaLocal);
+
+create index vigia_primary_idx on Vigia using hash(numCamara, moradaLocal);
 create index vigia_secondary_idx on Vigia using hash(moradaLocal);
 
-create index transporta_primary_idx on Transporta using hash(numProcessoSocorro);
+alter table Transporta drop constraint pk_Transporta;
+alter table Transporta add primary key(numProcessoSocorro, nomeEntidade, numMeio);
+
+create index transporta_primary_idx on Transporta using hash(numProcessoSocorro, nomeEntidade, numMeio);
 
 create index eventoEmergencia_primary_idx on EventoEmergencia using hash(numTelefone, instanteChamada);
 create index eventoEmergencia_secondary_idx on EventoEmergencia using hash(numProcessoSocorro);
