@@ -1307,7 +1307,7 @@ INSERT INTO Camara(numCamara) VALUES (98);
 INSERT INTO Camara(numCamara) VALUES (99);
 INSERT INTO Camara(numCamara) VALUES (100);
 
-INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 1);
+INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 10);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 2);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 3);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 4);
@@ -1316,7 +1316,7 @@ INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 7);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 8);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 9);
-INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 10);
+INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2018-03-28 20:20:20', '2018-04-28 20:20:20', 1);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 11);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 12);
 INSERT INTO Video(dataHoraInicio, dataHoraFim, numCamara) VALUES ('2015-03-28 20:20:20', '2015-04-28 20:20:20', 13);
